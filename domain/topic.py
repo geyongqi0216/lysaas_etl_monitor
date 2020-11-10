@@ -10,6 +10,8 @@ class topic:
         self.datawrit = datawrit,
         self.datarelation = datarelation
 
+
+
 class datarelation:
     def __init__(self,fronttableid,fronttablecode,fronttablename,behindtableid,behindtablecode,behindtablename):
         self.fronttableid=fronttableid,

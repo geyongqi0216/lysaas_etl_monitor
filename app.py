@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import redirect,url_for
+from service.pandect import *
 app = Flask(__name__)
 
 # 视图函数 总览页面
@@ -18,7 +19,11 @@ def index():
 
 @app.route("/etlmonitor/datasync-topic")
 def datasync_topic():
-    return render_template('datasync-topic.html')
+    date=pandect()
+    print(date.topicname[0])
+    topiclist = []
+    topiclist.append(date)
+    return render_template('datasync-topic.html',topiclist=topiclist)
 
 @app.route("/etlmonitor/datasync-table")
 def datasync_table():
