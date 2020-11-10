@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><base href="./">
+<title>USF优服务框架后台</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>document.write('<link rel="stylesheet" href="./static/css/bootstrap.min.css?' + new Date().getTime() + '"/>')</script>
+<script>document.write('<link rel="stylesheet" href="./static/css/bootstrap-responsive.min.css?' + new Date().getTime() + '"/>')</script>
+<script>document.write('<link rel="stylesheet" href="./static/css/fullcalendar.css?' + new Date().getTime() + '"/>')</script>
+<script>document.write('<link rel="stylesheet" href="./static/css/matrix-style.css?' + new Date().getTime() + '"/>')</script>
+<script>document.write('<link rel="stylesheet" href="./static/css/matrix-media.css?' + new Date().getTime() + '"/>')</script>
+<script>document.write('<link rel="stylesheet" href="./static/css/jquery.gritter.css?' + new Date().getTime() + '"/>')</script>
+<script>document.write('<link rel="stylesheet" href="./static/css/uniform.css?' + new Date().getTime() + '"/>')</script>
+<script>document.write('<link rel="stylesheet" href="./static/css/select2.css?' + new Date().getTime() + '"/>')</script>
+<script>document.write('<link rel="stylesheet" href="./static/css/bootstrap-wysihtml5.css?' + new Date().getTime() + '"/>')</script>
+<script>document.write('<link rel="stylesheet" href="./static/css/colorpicker.css?' + new Date().getTime() + '"/>')</script>
+<script>document.write('<link rel="stylesheet" href="./static/css/datepicker.css?' + new Date().getTime() + '"/>')</script>
+<script>document.write('<link rel="stylesheet" href="./static/css/reveal.css?' + new Date().getTime() + '"/>')</script>
+<script>document.write('<link  rel="stylesheet"  href="./static/font-awesome/css/font-awesome.css?' + new Date().getTime() + '"/>')</script>
+<script>document.write('<link  rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700,800?' + new Date().getTime() + '"/>')</script>
+</head>
+<meta charset="UTF-8">
+
+<body>
+
+<!--Header-part-->
+<div id="header" >
+  <h1><a href="../manage/index" ><img alt="userscrm" src="img/logo.png" width="160" height="80" ></a></h1>
+</div>
+<!--close-Header-part-->
+<!--top-Header-menu-->
+<div id="user-nav" class="navbar navbar-inverse">
+  <ul class="nav">
+    <li>
+    <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
+    <i class="icon icon-user"></i>
+	<span class="text">${sessionScope.mUserEntity.userName},您好!</span> 
+	</a></li>
+	<!--b class="caret"></b></a>S
+      <ul class="dropdown-menu">
+    <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">设置</span></a></li>
+        <li class="divider" />
+        <li><a href="#"><i class="icon-check"></i> 我的权限 </a></li>
+      </ul>
+    </li>
+    <li class="dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">消息</span> <span class="label label-important">5</span> <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a class="sAdd" title="" href="#"><i class="icon-plus"></i> 新消息</a></li>
+        <li class="divider"></li>
+        <li><a class="sInbox" title="" href="#"><i class="icon-envelope"></i> 收件箱</a></li>
+      </ul>
+    </li-->
+        <li><a  href="#passwordinfo" onclick="javascript:passwordinfoPopJs()"  data-toggle="modal"><i class="icon-lock"></i> 修改密码 </a></li>
+    <li class=""><a title="" href="../manage/logout"><i class="icon icon-share-alt"></i> <span class="text">退出</span></a></li>
+  <li>
+  </ul>
+</div>
+<div style="position: absolute;z-index: 25;top: 0px;right: 10px;color: white;">
+	<h5> <span id="p" ></span>
+    <i class="icon icon-time"></i></h5>
+	</div>
+<!--close-top-Header-menu-->
+<!--start-top-serch>
+<div id="search">
+  <input type="text" placeholder="输入搜索内容..."/>
+  <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
+</div-->
+<!--close-top-serch-->
+<!--sidebar-menu-->
+<div id="sidebar"><a href="javascript:" class="visible-phone"><i class="icon icon-home"></i> 控制台</a>
+  <ul>
+    <li id=""><a href="myindex.jsp"><i class="icon icon-home"></i> <span>首页</span></a> </li>
+   
+    <li id="datasync" class="submenu"><a href="javascript:"><i class="icon icon-th-list"></i><span>ETL监控</span> </a>
+      <ul>
+        <li id="datasync-topic"><a href="./datasync-topic">主题状态监控</a></li>
+        <li id="datasync-table"><a href="./datasync-table.html">数据同步监控</a></li>
+        <li id="datasync-o"><a href="datasync-o.jsp">其他</a></li>
+      </ul>
+    </li>
+   
+    <li id="monitor" class="submenu"><a href="javascript:"><i class="icon icon-th-list"></i><span>预售监控</span> </a>
+      <ul>
+        <li id="monitor-main"><a href="monitor-main.jsp">监控一览</a></li>
+        <li id="monitor-shop"><a href="monitor-shop.jsp">店铺监控</a></li>
+        <li id="monitor-item"><a href="monitor-item.jsp">单品监控</a></li>
+      </ul>
+    </li>
+   
+    <li id="task" class="submenu"><a href="javascript:"><i class="icon icon-th-list"></i><span>任务管理</span> </a>
+      <ul>
+        <li id="task-cycle"><a href="task-cycle.jsp">执行周期</a></li>
+        <li id=""><a href="">邮件发送</a></li>
+        <li id=""><a href="">历史记录</a></li>
+      </ul>
+    </li>
+   
+    <li id="account" class="submenu"><a href="javascript:"><i class="icon icon-th-list"></i><span>账户管理</span> </a>
+      <ul>
+        <li id="account-child"><a href="account-child.jsp">子账号</a></li>
+      </ul>
+    </li>
+
+    <li class="content"> <span>监控使用量</span>
+      <div class="progress progress-mini active progress-striped">
+        <div style="width: 37.8%;" class="bar"></div>
+      </div>
+      <span class="percent">37.8%</span>
+      <div class="stat">378 / 1000</div>
+    </li> 
+	<li class="content"> <span></span>
+      <div class="progress progress-mini progress-danger active progress-striped">
+        <div style="width: 83.2%;" class="bar"></div>
+      </div>
+      <span class="percent">83.2%</span>
+      <div class="stat">832 / 1000</div>
+    </li>
+  </ul>
+</div>
+<!--sidebar-menu-->
+<!-- password edit div -->
+<div id="passwordinfo" class="modal hide" style="display: none;" aria-hidden="true">
+  <div class="modal-header">
+    <button data-dismiss="modal" class="close" type="button">×</button>
+    <h3 id="shopInfoTitle">密码重置</h3>
+  </div>
+				 <div id="passwordFormerrorInfo" style="color: red;" align="center"></div>
+
+					<form id="passwordForm" action="../manage/newPassword" method="post" class="form-horizontal">
+
+		              <div hidden="hidden">
+		                <input id="passwordForm-id" name="passwordForm-id" type="text" class="span3" placeholder="id" value="${sessionScope.mUserEntity.id}">
+		              </div>
+		              <label class="control-label">当前密码</label>
+		              <div class="controls">
+		                <input id="passwordForm-oldpsd" name="passwordForm-oldpsd"  type="password" class="span3" placeholder="现在使用中的密码">
+		              </div>
+		              <label class="control-label">新的密码</label>
+		              <div class="controls">
+		                <input id="passwordForm-newpsd" name="passwordForm-newpsd"  type="password" class="span3" placeholder="想设置的新密码">
+		              </div>
+		              <label class="control-label">重复新密码</label>
+		              <div class="controls">
+		                <input id="passwordForm-repsd" name="passwordForm-repsd"  type="password" class="span3" placeholder="想设置的新密码确认">
+		              </div>
+		              
+		            
+		            <div class="form-actions"  style="text-align-last:justify;text-align:justify;text-justify:distribute-all-lines;">
+		             <a id="passwordFormsubmit"  name="passwordFormsubmit" type="submit" class="btn btn-success" >确认 </a>
+		              <a  data-dismiss="modal" class="btn btn-danger" href="#">取消</a>
+		            </div>
+		          </form>
+</div>
+
+
