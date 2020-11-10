@@ -38,31 +38,85 @@
       		
 			
 			<div class="span1" style="text-align:center;margin:0px 10px">
-			<h1><i class="icon-{{topicdata.dataget[0]}}" style="color:green"></i></h1>     
+			<h1>
+
+				{% if  topicdata.dataget=='ING' %}
+				<i class="icon-refresh" style="color:RoyalBlue;"></i>
+				{% elif topicdata.dataget=='WAR' %}
+				<i class="icon-warning-sign" style="color:Goldenrod"></i>
+				{% elif topicdata.dataget=='SUC' %}
+				<i class="icon-ok-circle" style="color:green"></i>
+				{% elif topicdata.dataget=='FAI' %}
+				<i class="icon-remove-circle" style="color:Firebrick"></i>
+				{% elif topicdata.dataget=='STOP' %}
+				<i class="icon-ban-circle" style="color:DimGray"></i>
+				{% endif %}
+
+			</h1>
 			 数据获取
 			</div>   
 			   
-			<div class="span1" style="text-align:center;;margin:0px 10px"><br><h3 style="color:MediumBlue"><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i></h3></div>
+			<div class="span1" style="text-align:center;;margin:-10px 10px"><br><h3 style="color:MediumBlue"><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i></h3></div>
 			  
 			<div class="span1" style="text-align:center;margin:0px 10px">
-			<h1><i class="icon-{{topicdata.datahandle[0]}}" style="color:green"></i></h1>   
+			<h1>
+
+				{% if  topicdata.datahandle=='ING' %}
+				<i class="icon-refresh" style="color:RoyalBlue;"></i>
+				{% elif topicdata.datahandle=='WAR' %}
+				<i class="icon-warning-sign" style="color:Goldenrod"></i>
+				{% elif topicdata.datahandle=='SUC' %}
+				<i class="icon-ok-circle" style="color:green"></i>
+				{% elif topicdata.datahandle=='FAI' %}
+				<i class="icon-remove-circle" style="color:Firebrick"></i>
+				{% elif topicdata.datahandle=='STOP' %}
+				<i class="icon-ban-circle" style="color:DimGray"></i>
+				{% endif %}
+
+			</h1>
 			数据处理
 			</div> 
-			
 
 
-
-			<div class="span1" style="text-align:center;margin:0px 10px"><br><h3 style="color:MediumBlue"><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i></h3></div>
+			<div class="span1" style="text-align:center;margin:-10px 10px"><br><h3 style="color:MediumBlue"><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i></h3></div>
 			  
 			<div class="span1" style="text-align:center;margin:0px 10px">
-			<h1><i class="icon-{{topicdata.datavalidate[0]}}" style="color:green"></i></h1>      
+			<h1>
+
+			{% if  topicdata.datavalidate=='ING' %}
+			<i class="icon-refresh" style="color:RoyalBlue;"></i>
+			{% elif topicdata.datavalidate=='WAR' %}
+			<i class="icon-warning-sign" style="color:Goldenrod"></i>
+			{% elif topicdata.datavalidate=='SUC' %}
+			<i class="icon-ok-circle" style="color:green"></i>
+			{% elif topicdata.datavalidate=='FAI' %}
+			<i class="icon-remove-circle" style="color:Firebrick"></i>
+			{% elif topicdata.datavalidate=='STOP' %}
+			<i class="icon-ban-circle" style="color:DimGray"></i>
+			{% endif %}
+
+			</h1>
 			主题校验
 			</div>   
 			   
-			<div class="span1" style="text-align:center;margin:0px 10px"><br><h3 style="color:MediumBlue"><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i></h3></div>
+			<div class="span1" style="text-align:center;margin:-10px 10px"><br><h3 style="color:MediumBlue"><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i></h3></div>
 			  
 			<div class="span1" style="text-align:center;margin:0px 10px">
-			<h1><i class="icon-{{topicdata.datawrit[0]}}" style="color:green"></i></h1>   
+			<h1>
+
+				{% if  topicdata.datawrit=='ING' %}
+				<i class="icon-refresh" style="color:RoyalBlue;"></i>
+				{% elif  topicdata.datawrit=='WAR' %}
+				<i class="icon-warning-sign" style="color:Goldenrod"></i>
+				{% elif topicdata.datawrit=='SUC' %}
+				<i class="icon-ok-circle" style="color:green"></i>
+				{% elif topicdata.datawrit=='FAI' %}
+				<i class="icon-remove-circle" style="color:Firebrick"></i>
+				{% elif topicdata.datawrit=='STOP' %}
+				<i class="icon-ban-circle" style="color:DimGray"></i>
+				{% endif %}
+
+			</h1>
 			数据写入	  
 			</div> 
 			
