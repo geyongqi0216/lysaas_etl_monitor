@@ -31,18 +31,18 @@
                     <tbody>
                       {% for tableinfo in tablelist %}
                         <tr class="gradea">
-                          <td style="vertical-align: middle"><h5>{{sourcetablename}}</h5></td>
-                          <td style="vertical-align: middle"><h5>{{targettablename}}</h5></td>
-                          <td style="vertical-align: middle"><h5>{{tablecode}}</h5></td>
+                          <td style="vertical-align: middle"><h5>{{sourcetablename.[0]}}</h5></td>
+                          <td style="vertical-align: middle"><h5>{{targettablename.[0]}}</h5></td>
+                          <td style="vertical-align: middle"><h5>{{tablecode.[0]}}</h5></td>
                           <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>
-                              {{syncstats}}</td>
-                          <td style="vertical-align: middle"><h5>{{synctime}}</h5></td>
-                          <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">{{syncappend}}</h5></td>
+                              {{syncstats.[0]}}</td>
+                          <td style="vertical-align: middle"><h5>{{synctime.[0]}}</h5></td>
+                          <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">{{syncappend.[0]}}</h5></td>
                           <td style="vertical-align: middle">
-                         <a title="" id="example" data-content="{{synccondition}}" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                         <a title="" id="example" data-content="{{synccondition.[0]}}" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
                          <i class="icon-search"></i>同步条件</a>
                             &nbsp;|&nbsp;
-                          <a title="" id="example" data-content="被以下主题引用：<hr  style='margin:0px'> {{topicnamelist}}" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                          <a title="" id="example" data-content="被以下主题引用：<hr  style='margin:0px'> {{topicnamelist.[0]}}" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
                           <i class="icon-copy"></i>引用</a>
                             </td>
                         </tr>
