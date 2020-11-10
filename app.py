@@ -12,7 +12,7 @@ def index():
 
 
 @app.route("/datasync-topic")
-def aaa():
+def datasync_topic():
     return render_template('datasync-topic.html')
 
 
