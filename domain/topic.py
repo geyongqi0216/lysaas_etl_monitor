@@ -1,13 +1,18 @@
 # 模块 datasync 页面 topic
-class topic:
+
+class Topic1:
+    def __init__(self, topicname):
+        self.topicname = topicname
+
+class Topic:
     def __init__(self, topicname , topictable, topictime, dataget, datahandle, datavalidate, datawrit, datarelation):
-        self.topicname = topicname,
-        self.topictable = topictable,
-        self.topictime = topictime,
-        self.dataget = dataget,
-        self.datahandle = datahandle,
-        self.datavalidate = datavalidate,
-        self.datawrit = datawrit,
+        self.topicname = '123'
+        self.topictable = topictable
+        self.topictime = topictime
+        self.dataget = dataget
+        self.datahandle = datahandle
+        self.datavalidate = datavalidate
+        self.datawrit = datawrit
         self.datarelation = datarelation
 
 
