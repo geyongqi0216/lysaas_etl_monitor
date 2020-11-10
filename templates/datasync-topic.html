@@ -28,24 +28,24 @@
 			</div>   
 		
 			<div class="span2" ><!-- 代替第一个换行，并在最后显示一个分割线段 -->
-           	<h6> 主题名：{{topicdata.topicname.[0]}}
+           	<h6> 主题名：{{topicdata.topicname[0]}}
 			<br>
-			主题表：{{topicdata.topictable.[0]}} 
+			主题表：{{topicdata.topictable[0]}} 
 			<hr style="margin:3px" >
-			更新：{{topicdata.topictime.[0]}}
+			更新：{{topicdata.topictime[0]}}
 			</h6>
       		</div>
       		
 			
 			<div class="span1" style="text-align:center;margin:0px 10px">
-			<h1><i class="icon-{{topicdata.dataget.[0]}}" style="color:green"></i></h1>     
+			<h1><i class="icon-{{topicdata.dataget[0]}}" style="color:green"></i></h1>     
 			 数据获取
 			</div>   
 			   
 			<div class="span1" style="text-align:center;;margin:0px 10px"><br><h3 style="color:MediumBlue"><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i></h3></div>
 			  
 			<div class="span1" style="text-align:center;margin:0px 10px">
-			<h1><i class="icon-{{topicdata.datahandle.[0]}}" style="color:green"></i></h1>   
+			<h1><i class="icon-{{topicdata.datahandle[0]}}" style="color:green"></i></h1>   
 			数据处理
 			</div> 
 			
@@ -55,14 +55,14 @@
 			<div class="span1" style="text-align:center;margin:0px 10px"><br><h3 style="color:MediumBlue"><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i></h3></div>
 			  
 			<div class="span1" style="text-align:center;margin:0px 10px">
-			<h1><i class="icon-{{topicdata.datavalidate.[0]}}" style="color:green"></i></h1>      
+			<h1><i class="icon-{{topicdata.datavalidate[0]}}" style="color:green"></i></h1>      
 			主题校验
 			</div>   
 			   
 			<div class="span1" style="text-align:center;margin:0px 10px"><br><h3 style="color:MediumBlue"><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i></h3></div>
 			  
 			<div class="span1" style="text-align:center;margin:0px 10px">
-			<h1><i class="icon-{{topicdata.datawrit.[0]}}" style="color:green"></i></h1>   
+			<h1><i class="icon-{{topicdata.datawrit[0]}}" style="color:green"></i></h1>   
 			数据写入	  
 			</div> 
 			
@@ -70,7 +70,7 @@
             <h6 style="font-weight: normal;">主题数据来源：
 			{%  for dare in topicdata.datarelation %}
 				<br>
-				{{dare.table_name.[0]}}
+				{{dare.table_name[0]}}
 			{% endfor %}
 			</h6>
       		</div>  
