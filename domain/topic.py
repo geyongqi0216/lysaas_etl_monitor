@@ -2,7 +2,7 @@
 class topic:
     def __init__(self, topicname , topictable, topictime, dataget, datahandle, datavalidate, datawrit, datarelation):
         self.topicname = topicname,
-        self.toptable = topictable,
+        self.topictable = topictable,
         self.topictime = topictime,
         self.dataget = dataget,
         self.datahandle = datahandle,
