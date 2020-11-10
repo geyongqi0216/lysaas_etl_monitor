@@ -1,0 +1,320 @@
+{% include "headerpart.html" %}
+<!-- main part start-->
+<div id="content">
+<!-- top folder  -->
+  <div id="content-header">
+		<div id="breadcrumb">
+			<a class="tip-bottom" ><i class="icon-home"></i>首页</a> <a>ETL监控 </a> <a class="current">数据同步监控</a>
+		</div>
+  </div>
+<!-- top folder end -->
+<!-- main body backgrand-->
+	<div class="container-fluid">
+	    <div class="row-fluid">
+
+        <div class="widget-box">
+    <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>表数据同步和处理状态监控</h5>
+          </div>
+
+          <div class="widget-content nopadding">
+            <table id="" class="table table-bordered data-table">
+              <thead>
+                <tr>
+                  <th width="15%"><h5 style="margin:5px">来源</h5></th>
+                  <th width="15%"><h5 style="margin:5px">目标</h5></th>
+                  <th width="20%"><h5 style="margin:5px">说明</h5></th>
+                  <th width="10%"><h5 style="margin:5px">状态</h5></th>
+                  <th width="20%"><h5 style="margin:5px">时间</h5></th>
+                  <th width="10%"><h5 style="margin:5px">数量</h5></th>
+                  <th width="10%"><h5 style="margin:5px">更多</h5></th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for tableinfo in tablelist %}
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>{{sourcetablename}}</h5></td>
+                  <td style="vertical-align: middle"><h5>{{targettablename}}</h5></td>
+                  <td style="vertical-align: middle"><h5>{{tablecode}}</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>
+                      {{syncstats}}</td>
+                  <td style="vertical-align: middle"><h5>{{synctime}}</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">{{syncappend}}</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="{{synccondition}}" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="被以下主题引用：<hr  style='margin:0px'> {{topicnamelist}}" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>引用</a>
+					</td>
+                </tr>
+                {% endfor %}
+
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>crm_member</h5></td>
+                  <td style="vertical-align: middle"><h5>src_member</h5></td>
+                  <td style="vertical-align: middle"><h5>会员基础信息</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>同步成功</td> 
+                  <td style="vertical-align: middle"><h5>2020-11-01 00:07:42</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">25</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="last_sync between <br>  ('2020-10-26','2020-11-01')" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="begin: <br> f8e45e58-5ebf-9bad-9fdf-4881c636dcfb <br><hr  style='margin:0px'> end:<br> d1dc46b8-d075-5a56-2dd6-4f9e6042097c" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>头尾数据</a> 
+					</td>
+                </tr>
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>crm_member</h5></td>
+                  <td style="vertical-align: middle"><h5>src_member</h5></td>
+                  <td style="vertical-align: middle"><h5>会员基础信息</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>同步成功</td> 
+                  <td style="vertical-align: middle"><h5>2020-11-01 00:07:42</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">37</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="last_sync between<br>('2020-10-26','2020-11-01')" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="begin:<br>f8e45e58-5ebf-9bad-9fdf-4881c636dcfb<br><hr style='margin:0px'>end:<br>d1dc46b8-d075-5a56-2dd6-4f9e6042097c" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>头尾数据</a> 
+					</td>
+                </tr>
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>crm_member</h5></td>
+                  <td style="vertical-align: middle"><h5>src_member</h5></td>
+                  <td style="vertical-align: middle"><h5>会员基础信息</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>同步成功</td> 
+                  <td style="vertical-align: middle"><h5>2020-11-01 00:07:42</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">41</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="last_sync between <br>  ('2020-10-26','2020-11-01')" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="begin: <br> f8e45e58-5ebf-9bad-9fdf-4881c636dcfb <br><hr  style='margin:0px'> end:<br> d1dc46b8-d075-5a56-2dd6-4f9e6042097c" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>头尾数据</a> 
+					</td>
+                </tr>
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>crm_member</h5></td>
+                  <td style="vertical-align: middle"><h5>src_member</h5></td>
+                  <td style="vertical-align: middle"><h5>会员基础信息</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>同步成功</td> 
+                  <td style="vertical-align: middle"><h5>2020-11-01 00:07:42</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">53</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="last_sync between <br>  ('2020-10-26','2020-11-01')" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="begin: <br> f8e45e58-5ebf-9bad-9fdf-4881c636dcfb <br><hr  style='margin:0px'> end:<br> d1dc46b8-d075-5a56-2dd6-4f9e6042097c" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>头尾数据</a> 
+					</td>
+                </tr>
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>crm_member</h5></td>
+                  <td style="vertical-align: middle"><h5>src_member</h5></td>
+                  <td style="vertical-align: middle"><h5>会员基础信息</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>同步成功</td> 
+                  <td style="vertical-align: middle"><h5>2020-11-01 00:07:42</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">65</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="last_sync between <br>  ('2020-10-26','2020-11-01')" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="begin: <br> f8e45e58-5ebf-9bad-9fdf-4881c636dcfb <br><hr  style='margin:0px'> end:<br> d1dc46b8-d075-5a56-2dd6-4f9e6042097c" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>头尾数据</a> 
+					</td>
+                </tr>
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>crm_member</h5></td>
+                  <td style="vertical-align: middle"><h5>src_member</h5></td>
+                  <td style="vertical-align: middle"><h5>会员基础信息</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>同步成功</td> 
+                  <td style="vertical-align: middle"><h5>2020-11-01 00:07:42</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">79</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="last_sync between <br>  ('2020-10-26','2020-11-01')" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="begin: <br> f8e45e58-5ebf-9bad-9fdf-4881c636dcfb <br><hr  style='margin:0px'> end:<br> d1dc46b8-d075-5a56-2dd6-4f9e6042097c" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>头尾数据</a> 
+					</td>
+                </tr>
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>crm_member</h5></td>
+                  <td style="vertical-align: middle"><h5>src_member</h5></td>
+                  <td style="vertical-align: middle"><h5>会员基础信息</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>同步成功</td> 
+                  <td style="vertical-align: middle"><h5>2020-11-01 00:07:42</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">83</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="last_sync between <br>  ('2020-10-26','2020-11-01')" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="begin: <br> f8e45e58-5ebf-9bad-9fdf-4881c636dcfb <br><hr  style='margin:0px'> end:<br> d1dc46b8-d075-5a56-2dd6-4f9e6042097c" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>头尾数据</a> 
+					</td>
+                </tr>
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>crm_member</h5></td>
+                  <td style="vertical-align: middle"><h5>src_member</h5></td>
+                  <td style="vertical-align: middle"><h5>会员基础信息</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>同步成功</td> 
+                  <td style="vertical-align: middle"><h5>2020-11-01 00:07:42</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">95</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="last_sync between <br>  ('2020-10-26','2020-11-01')" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="begin: <br> f8e45e58-5ebf-9bad-9fdf-4881c636dcfb <br><hr  style='margin:0px'> end:<br> d1dc46b8-d075-5a56-2dd6-4f9e6042097c" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>头尾数据</a> 
+					</td>
+                </tr>
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>crm_member</h5></td>
+                  <td style="vertical-align: middle"><h5>src_member</h5></td>
+                  <td style="vertical-align: middle"><h5>会员基础信息</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>同步成功</td> 
+                  <td style="vertical-align: middle"><h5>2020-11-01 00:07:42</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">11</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="last_sync between <br>  ('2020-10-26','2020-11-01')" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="begin: <br> f8e45e58-5ebf-9bad-9fdf-4881c636dcfb <br><hr  style='margin:0px'> end:<br> d1dc46b8-d075-5a56-2dd6-4f9e6042097c" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>头尾数据</a> 
+					</td>
+                </tr>
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>crm_member</h5></td>
+                  <td style="vertical-align: middle"><h5>src_member</h5></td>
+                  <td style="vertical-align: middle"><h5>会员基础信息</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>同步成功</td> 
+                  <td style="vertical-align: middle"><h5>2020-11-01 00:07:42</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">10</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="last_sync between <br>  ('2020-10-26','2020-11-01')" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="begin: <br> f8e45e58-5ebf-9bad-9fdf-4881c636dcfb <br><hr  style='margin:0px'> end:<br> d1dc46b8-d075-5a56-2dd6-4f9e6042097c" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>头尾数据</a> 
+					</td>
+                </tr>
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>crm_member</h5></td>
+                  <td style="vertical-align: middle"><h5>src_member</h5></td>
+                  <td style="vertical-align: middle"><h5>会员基础信息</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>同步成功</td> 
+                  <td style="vertical-align: middle"><h5>2020-11-01 00:07:42</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">25</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="last_sync between <br>  ('2020-10-26','2020-11-01')" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="begin: <br> f8e45e58-5ebf-9bad-9fdf-4881c636dcfb <br><hr  style='margin:0px'> end:<br> d1dc46b8-d075-5a56-2dd6-4f9e6042097c" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>头尾数据</a> 
+					</td>
+                </tr>
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>crm_member</h5></td>
+                  <td style="vertical-align: middle"><h5>src_member</h5></td>
+                  <td style="vertical-align: middle"><h5>会员基础信息</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>同步成功</td> 
+                  <td style="vertical-align: middle"><h5>2020-11-01 00:07:42</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">26</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="last_sync between <br>  ('2020-10-26','2020-11-01')" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="begin: <br> f8e45e58-5ebf-9bad-9fdf-4881c636dcfb <br><hr  style='margin:0px'> end:<br> d1dc46b8-d075-5a56-2dd6-4f9e6042097c" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>头尾数据</a> 
+					</td>
+                </tr>
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>crm_member</h5></td>
+                  <td style="vertical-align: middle"><h5>src_member</h5></td>
+                  <td style="vertical-align: middle"><h5>会员基础信息</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>同步成功</td> 
+                  <td style="vertical-align: middle"><h5>2020-11-01 00:07:42</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">27</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="last_sync between <br>  ('2020-10-26','2020-11-01')" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="begin: <br> f8e45e58-5ebf-9bad-9fdf-4881c636dcfb <br><hr  style='margin:0px'> end:<br> d1dc46b8-d075-5a56-2dd6-4f9e6042097c" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>头尾数据</a> 
+					</td>
+                </tr>
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>crm_member</h5></td>
+                  <td style="vertical-align: middle"><h5>src_member</h5></td>
+                  <td style="vertical-align: middle"><h5>会员基础信息</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>同步成功</td> 
+                  <td style="vertical-align: middle"><h5>2020-11-01 00:07:42</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">39</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="last_sync between <br>  ('2020-10-26','2020-11-01')" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="begin: <br> f8e45e58-5ebf-9bad-9fdf-4881c636dcfb <br><hr  style='margin:0px'> end:<br> d1dc46b8-d075-5a56-2dd6-4f9e6042097c" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>头尾数据</a> 
+					</td>
+                </tr>
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>crm_member</h5></td>
+                  <td style="vertical-align: middle"><h5>src_member</h5></td>
+                  <td style="vertical-align: middle"><h5>会员基础信息</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>同步成功</td> 
+                  <td style="vertical-align: middle"><h5>2020-11-01 00:07:42</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">36</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="last_sync between <br>  ('2020-10-26','2020-11-01')" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="begin: <br> f8e45e58-5ebf-9bad-9fdf-4881c636dcfb <br><hr  style='margin:0px'> end:<br> d1dc46b8-d075-5a56-2dd6-4f9e6042097c" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>头尾数据</a> 
+					</td>
+                </tr>
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>crm_member</h5></td>
+                  <td style="vertical-align: middle"><h5>src_member</h5></td>
+                  <td style="vertical-align: middle"><h5>会员基础信息</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>同步成功</td> 
+                  <td style="vertical-align: middle"><h5>2020-11-01 00:07:42</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">67</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="last_sync between <br>  ('2020-10-26','2020-11-01')" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="begin: <br> f8e45e58-5ebf-9bad-9fdf-4881c636dcfb <br><hr  style='margin:0px'> end:<br> d1dc46b8-d075-5a56-2dd6-4f9e6042097c" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>头尾数据</a> 
+					</td>
+                </tr>
+                <tr class="gradea">
+                  <td style="vertical-align: middle"><h5>crm_member</h5></td>
+                  <td style="vertical-align: middle"><h5>src_member</h5></td>
+                  <td style="vertical-align: middle"><h5>会员基础信息</h5></td>
+                  <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>同步成功</td> 
+                  <td style="vertical-align: middle"><h5>2020-11-01 00:07:42</h5></td>
+                  <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">60</h5></td>
+                  <td style="vertical-align: middle"> 
+                 <a title="" id="example" data-content="last_sync between <br>  ('2020-10-26','2020-11-01')" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
+                 <i class="icon-search"></i>同步条件</a> 
+					&nbsp;|&nbsp;
+                  <a title="" id="example" data-content="begin: <br> f8e45e58-5ebf-9bad-9fdf-4881c636dcfb <br><hr  style='margin:0px'> end:<br> d1dc46b8-d075-5a56-2dd6-4f9e6042097c" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
+                  <i class="icon-copy"></i>头尾数据</a> 
+					</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+  </div>
+  </div>
+
+
+<!-- main part end-->
+
+
+{% include "footerpart.html" %}
