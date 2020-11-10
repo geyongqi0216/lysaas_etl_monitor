@@ -6,7 +6,7 @@ class Topic1:
 
 class Topic:
     def __init__(self, topicname , topictable, topictime, dataget, datahandle, datavalidate, datawrit, datarelation):
-        self.topicname = '123'
+        self.topicname = topicname
         self.topictable = topictable
         self.topictime = topictime
         self.dataget = dataget
