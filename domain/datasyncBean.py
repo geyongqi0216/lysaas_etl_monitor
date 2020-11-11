@@ -24,6 +24,8 @@ class Topic:
         self.datarelationlist = datarelationlist
 
 
+
+
 class Stepstats:
     def __init__(self, stats, title, memo):
         self.stats = stats
