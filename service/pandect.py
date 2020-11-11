@@ -13,12 +13,13 @@ def get_app_row_sql(id, lab):
         from t_table_base t1 left join t_table_relation t2 on t1.id=t2.behind_table_id 
         left join v_log_daily t3 on t2.front_table_id = t3.config_id
         left join t_table_base t4 on t2.front_table_id=t4.id
-        where  t1.table_lab ='app' 
+        where  t1.table_lab ='topic' 
     """
     sql = sql+"and t1.id='"+id+"'"
     sql = sql+"and t4.table_lab='"+lab+"'"
 
     return sql
+
 
 # 计算某个主题依赖的步骤执行状态，id 主题id,level 依赖层级
 def get_front_state(id,level):
@@ -32,7 +33,7 @@ def get_front_state(id,level):
     for datum in data:
         if datum[2] == 'success':
             flag_success = flag_success + 1
-        elif datum[2] == 'fal':
+        elif datum[2] == 'fai':
             flag_fal = flag_fal + 1
         elif datum[2] == 'stop':
             flag_stop = flag_stop + 1
@@ -56,7 +57,7 @@ def get_front_state(id,level):
 
     if stats == 'FAI':
         for datum in data:
-            if datum[2] == 'stop':
+            if datum[2] == 'fai':
                memo = datum[0]+'-'+datum[1]+'  '
 
     # 三个属性值拼接完成构造对象
@@ -65,40 +66,62 @@ def get_front_state(id,level):
 
 
 
-def pandect():
-
+# 主函数
+def pandect_topic():
     # 获取数据库链接对象
     conn = get_connect()
     topic_list = []
     # 从t_table_base 表中获取主题层表表id
-    sql = "select id,table_name,table_code from t_table_base t1 where t1.table_lab='app'"
-    result = conn.query(sql)
-    for row in result:
-        if len(row) != 0:
-            topicname = row[1]
-            topictable = row[2]
-            topictime = None
+    sql = "select id,table_name,table_code from t_table_base t1 where t1.table_lab='topic'"
+    rows = conn.query(sql)
+    if len(rows) == 0:
+        return topic_list
+    for row in rows:
+        topicname = None
+        topictable = None
+        topictime = None
+        dataget = None
+        datahandle = None
+        datavalidate = None
+        datawrit = None
+        datarelationlist = None
 
-            #获取节点执行时间
-            re = get_connect().query("select timestamp_v  from v_log_daily where config_id = '" + str(row[0]) + "'")
-            if len(re) != 0:
-                topictime = re[0][0].strftime("%Y-%m-%d %H:%M:%S")
-            dataget = get_front_state(row[0],'src')
-            datahandle = Stepstats(dataget.stats,'','')
-            datavalidate = Stepstats(dataget.stats,'','')
-            datawrit = Stepstats(dataget.stats,'','')
-            datarelationlist = []
-            #获取表依赖关系
-            relation_result=conn.query("select t2.table_code ,t2.table_name from t_table_relation t1 left join t_table_base t2  on t1.front_table_id = t2.id where t1.behind_table_id='"+str(row[0])+"'")
-            for relation in relation_result:
-                if len(relation) != 0:
-                    datarelationlist.append(Datarelation('',relation[0],relation[1],'','',''))
-            topic= Topic(topicname,topictable,topictime,dataget,datahandle,datavalidate,datawrit,datarelationlist)
-            topic_list.append(topic)
+        # 给属性赋值
+        topicname = row[1]
+        topictable = row[2]
+        #获取节点执行时间
+        re = get_connect().query("select timestamp_v  from v_log_daily where config_id = '" + str(row[0]) + "'")
+        if len(re) != 0:
+            topictime = re[0][0].strftime("%Y-%m-%d %H:%M:%S")
+        # step1 数据获取
+        dataget = get_front_state(row[0],'src')
+        if dataget.stats == 'FAI':
+            datahandle = Stepstats('STOP','提示','前置节点失败')
+        else:
+            datahandle = get_front_state(row[0],'exec')
+
+        if datahandle.stats == 'FAI':
+            datavalidate = Stepstats('STOP','提示','前置节点失败')
+        else:
+            datavalidate = get_front_state(row[0],'check')
+
+        if datavalidate.stats == 'FAI':
+            datawrit = Stepstats('STOP','提示','前置节点失败')
+        else:
+            datawrit = get_front_state(row[0],'app')
+
+        datarelationlist = []
+        #获取表依赖关系
+        relation_result=conn.query("select t2.table_code ,t2.table_name from t_table_relation t1 left join t_table_base t2  on t1.front_table_id = t2.id where t1.behind_table_id='"+str(row[0])+"'")
+        for relation in relation_result:
+            if len(relation) != 0:
+                datarelationlist.append(Datarelation('',relation[0],relation[1],'','',''))
+        topic = Topic(topicname,topictable,topictime,dataget,datahandle,datavalidate,datawrit,datarelationlist)
+        topic_list.append(topic)
     return topic_list
 
 
-def pandect_topic():
+def pandect_topic_demo():
     data = []
     dataget = Stepstats('SUC', '', '')
     datahandle = Stepstats('WAR', '数据缺失', 'wx_order微信订单 - 数据更新异常,pos_order线下订单 - 数据更新异常')
@@ -111,7 +134,7 @@ def pandect_topic():
     return data
 
 
-def pandect_table():
+def pandect_table_demo():
     data = []
     datarelationlist = [Datarelation('', '', '', '', 'app_order', '订单主题'),
                         Datarelation('', '', '', '', 'app_member', '会员主题'),
