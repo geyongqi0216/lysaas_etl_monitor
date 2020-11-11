@@ -23,11 +23,11 @@ def datasync_topic():
 
 @app.route("/etlmonitor/datasync-table")
 def datasync_table():
-    return render_template('datasync-table.html', tablelist=pandect_table_demo())
+    return render_template('datasync-table.html', tablelist=pandect_table())
 
 
 if __name__ == "__main__":
-    app.run('192.168.2.126', '8000')
+    app.run('0.0.0.0', '8000')
 
 
 

@@ -30,11 +30,11 @@ def get_front_state(id,level):
     memo = ''
     data = get_connect().query(get_app_row_sql(str(id), level))
     for datum in data:
-        if datum[2] == 'success':
+        if datum[2] == 'SUC':
             flag_success = flag_success + 1
-        elif datum[2] == 'fai':
+        elif datum[2] == 'FAI':
             flag_fal = flag_fal + 1
-        elif datum[2] == 'stop':
+        elif datum[2] == 'STOP':
             flag_stop = flag_stop + 1
     if flag_fal != 0:
         stats = 'FAI'
@@ -46,7 +46,7 @@ def get_front_state(id,level):
         stats = 'STOP'
 
     if stats == 'FAI':
-        title = '节点执行失败'
+        title = '<<<<<以下任务执行异常>>>>>'
     elif stats == 'ING':
         title = '节点正在运行'
     elif stats == 'STOP':
@@ -56,8 +56,8 @@ def get_front_state(id,level):
 
     if stats == 'FAI':
         for datum in data:
-            if datum[2] == 'fai':
-               memo = datum[0]+'-'+datum[1]+'  '
+            if datum[2] == 'FAI':
+               memo = datum[0]+'-'+datum[1]+' , '
 
     # 三个属性值拼接完成构造对象
 
@@ -78,7 +78,7 @@ def pandect_topic():
     for row in rows:
         topicname = None
         topictable = None
-        topictime = None
+        topictime = '今日未完成'
         dataget = None
         datahandle = None
         datavalidate = None
@@ -94,17 +94,17 @@ def pandect_topic():
             topictime = re[0][0].strftime("%Y-%m-%d %H:%M:%S")
         # step1 数据获取
         dataget = get_front_state(row[0],'src')
-        if dataget.stats == 'FAI':
+        if dataget.stats == 'FAI' or dataget.stats == 'STOP':
             datahandle = Stepstats('STOP','提示','前置节点失败')
         else:
             datahandle = get_front_state(row[0],'exec')
 
-        if datahandle.stats == 'FAI':
+        if datahandle.stats == 'FAI' or datahandle.stats == 'STOP' :
             datavalidate = Stepstats('STOP','提示','前置节点失败')
         else:
             datavalidate = get_front_state(row[0],'check')
 
-        if datavalidate.stats == 'FAI':
+        if datavalidate.stats == 'FAI' or datavalidate.stats == 'STOP':
             datawrit = Stepstats('STOP','提示','前置节点失败')
         else:
             datawrit = get_front_state(row[0],'app')
@@ -145,6 +145,39 @@ def pandect_table_demo():
     data.append(Table('crm_shop', '1', 'src_shop', '店铺信息', '全渠道店铺基础信息', syncstats, '2020-01-01 15:37', '99', '2020-01-01~2020-01-07', datarelationlist))
     return data
 
+def pandect_table():
+    tables = []
+    rows = get_connect().query("select  	t1.id 	,t1.table_code 	,t1.table_name 	,t1.remark 	,t2.source_table_name 	,t2.exec_state 	,t2.task_end_time 	,t2.append_number 	,t2.sync_condition from t_table_base t1 left join v_log_daily t2 on t1.id = t2.config_id where table_lab ='src'")
+    if len(rows) == 0:
+        return tables
+    for row in rows:
+        # 获取到每一张src_表的信息
+        sourcetablename = None
+        tableid = None
+        targettablename = None
+        tablename = None
+        remark = None
+        syncstats = None
+        synctime = None
+        syncappend = None
+        synccondition = None
+        datarelationlist = []
+
+        sourcetablename = row[4]
+        tableid = row[0]
+        targettablename =row[1]
+        tablename =row[2]
+        remark = row[3]
+        synctime = row[6]
+        syncappend = row[7]
+        synccondition =  row[8]
+        syncstats = Stepstats(row[5],'提示','测试')
+
+        data = get_connect().query("select t2.id,t2.table_code,t2.table_name from t_table_relation t1 left join t_table_base t2 on t1.behind_table_id = t2.id and t2.table_lab ='topic' where  t1.front_table_id='" + str(row[0]) +"'")
+        for tb in data:
+            datarelationlist.append(Datarelation('','','',tb[0],tb[1],tb[2]))
+        tables.append(Table(sourcetablename,tableid,targettablename,tablename,remark,syncstats,synctime,syncappend,synccondition,datarelationlist))
+    return tables
 
 if __name__ == '__main__':
-     data = pandect_table_demo()
+    pandect_table()
