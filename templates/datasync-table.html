@@ -36,6 +36,9 @@
                           <td style="vertical-align: middle"><h5>{{tableinfo.targettablename}}</h5></td>
                           <td style="vertical-align: middle"><h5>{{tableinfo.remark}}</h5></td>
                           <td style="vertical-align: middle;text-align:center;">
+
+                              <a href="#pop-syncstats-{{tableinfo.tableid}}" data-toggle="modal">
+
                           <h4 style="margin:0px">
                               	{% if tableinfo.syncstats=='ING' %}
                                 <i class="icon-refresh" style="color:RoyalBlue;"></i>
@@ -58,6 +61,18 @@
                           </h4>
                                 未执行
                                 {% endif %}
+                              </a>
+
+                              <div id="pop-datavalidate-{{tableinfo.topictable}}" class="modal hide" style="display: none;" aria-hidden="true">
+                                <div class="modal-header">
+                                <button data-dismiss="modal" class="close" type="button">×</button>
+                                <h3>{{topicdata.datavalidate.title}}</h3>
+                                </div>
+                                <div class="modal-body">
+                                <p>{{topicdata.datavalidate.memo}}</p>
+                                </div>
+                            </div>
+
                           </td>
 
 

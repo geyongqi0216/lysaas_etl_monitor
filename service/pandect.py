@@ -18,9 +18,10 @@ def pandect_topic():
 def pandect_table():
     data = []
     datarelationlist = [Datarelation('', '', '', '', 'app_order', '订单主题'),
-                        Datarelation('', '', '', '', 'app_member', '会员主题'   ),
+                        Datarelation('', '', '', '', 'app_member', '会员主题'),
                         Datarelation('', '', '', '', 'app_guide', '导购主题')]
-    data.append(Table('crm_shop', '1', 'src_shop', '店铺信息', '全渠道店铺基础信息', 'SUC', '2020-01-01 15:37', '1', '2020-01-01~2020-01-07', datarelationlist))
+    syncstats = Stepstats('SUC', '一切正常', '这里看起来没什么信息')
+    data.append(Table('crm_shop', '1', 'src_shop', '店铺信息', '全渠道店铺基础信息', syncstats, '2020-01-01 15:37', '1', '2020-01-01~2020-01-07', datarelationlist))
     return data
 
 
