@@ -28,101 +28,159 @@
 			</div>   
 		
 			<div class="span2" ><!-- 代替第一个换行，并在最后显示一个分割线段 -->
-           	<h6> 主题名：{{topicdata.topicname[0]}}
+           	<h6> 主题名：{{topicdata.topicname}}
 			<br>
-			主题表：{{topicdata.topictable[0]}} 
+			主题表：{{topicdata.topictable}}
 			<hr style="margin:3px" >
-			更新：{{topicdata.topictime[0]}}
+			更新：{{topicdata.topictime}}
 			</h6>
       		</div>
-      		
 			
 			<div class="span1" style="text-align:center;margin:0px 10px">
-			<h1>
-
-				{% if  topicdata.dataget=='ING' %}
+			{% if  topicdata.dataget.title!='' %}
+			<a href="#pop-dataget-{{topicdata.topictable}}" data-toggle="modal">
+			{% endif %}
+				<h1>
+				{% if  topicdata.dataget.stats=='ING' %}
 				<i class="icon-refresh" style="color:RoyalBlue;"></i>
-				{% elif topicdata.dataget=='WAR' %}
+				{% elif topicdata.dataget.stats=='WAR' %}
 				<i class="icon-warning-sign" style="color:Goldenrod"></i>
-				{% elif topicdata.dataget=='SUC' %}
+				{% elif topicdata.dataget.stats=='SUC' %}
 				<i class="icon-ok-circle" style="color:green"></i>
-				{% elif topicdata.dataget=='FAI' %}
+				{% elif topicdata.dataget.stats=='FAI' %}
 				<i class="icon-remove-circle" style="color:Firebrick"></i>
-				{% elif topicdata.dataget=='STOP' %}
+				{% elif topicdata.dataget.stats=='STOP' %}
 				<i class="icon-ban-circle" style="color:DimGray"></i>
 				{% endif %}
-
-			</h1>
-			 数据获取
+				</h1>
+			 	数据获取
+			{% if topicdata.dataget.title!='' %}
+			</a>
+				<div id="pop-dataget-{{topicdata.topictable}}" class="modal hide" style="display: none;" aria-hidden="true">
+              		<div class="modal-header">
+						<button data-dismiss="modal" class="close" type="button">×</button>
+						<h3>{{topicdata.dataget.title}}</h3>
+             	 	</div>
+             		<div class="modal-body">
+               			<p>{{topicdata.dataget.memo}}</p>
+              		</div>
+           		 </div>
+			{% endif %}
 			</div>   
 			   
 			<div class="span1" style="text-align:center;;margin:-10px 10px"><br><h3 style="color:MediumBlue"><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i></h3></div>
 			  
 			<div class="span1" style="text-align:center;margin:0px 10px">
-			<h1>
-
-				{% if  topicdata.datahandle=='ING' %}
+			{% if  topicdata.datahandle.title!='' %}
+			<a href="#pop-datahandle-{{topicdata.topictable}}" data-toggle="modal">
+			{% endif %}
+				<h1>
+				{% if  topicdata.datahandle.stats=='ING' %}
 				<i class="icon-refresh" style="color:RoyalBlue;"></i>
-				{% elif topicdata.datahandle=='WAR' %}
+				{% elif topicdata.datahandle.stats=='WAR' %}
 				<i class="icon-warning-sign" style="color:Goldenrod"></i>
-				{% elif topicdata.datahandle=='SUC' %}
+				{% elif topicdata.datahandle.stats=='SUC' %}
 				<i class="icon-ok-circle" style="color:green"></i>
-				{% elif topicdata.datahandle=='FAI' %}
+				{% elif topicdata.datahandle.stats=='FAI' %}
 				<i class="icon-remove-circle" style="color:Firebrick"></i>
-				{% elif topicdata.datahandle=='STOP' %}
+				{% elif topicdata.datahandle.stats=='STOP' %}
 				<i class="icon-ban-circle" style="color:DimGray"></i>
 				{% endif %}
-
-			</h1>
-			数据处理
-			</div> 
-
+				</h1>
+				数据处理
+			{% if topicdata.datahandle.title!='' %}
+			</a>
+			<div id="pop-datahandle-{{topicdata.topictable}}" class="modal hide" style="display: none;" aria-hidden="true">
+              	<div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button">×</button>
+                <h3>{{topicdata.datahandle.title}}</h3>
+                </div>
+                <div class="modal-body">
+                <p>{{topicdata.datahandle.memo}}</p>
+                </div>
+            </div>
+			{% endif %}
+			</div>
 
 			<div class="span1" style="text-align:center;margin:-10px 10px"><br><h3 style="color:MediumBlue"><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i></h3></div>
-			  
+
 			<div class="span1" style="text-align:center;margin:0px 10px">
-			<h1>
-
-			{% if  topicdata.datavalidate=='ING' %}
-			<i class="icon-refresh" style="color:RoyalBlue;"></i>
-			{% elif topicdata.datavalidate=='WAR' %}
-			<i class="icon-warning-sign" style="color:Goldenrod"></i>
-			{% elif topicdata.datavalidate=='SUC' %}
-			<i class="icon-ok-circle" style="color:green"></i>
-			{% elif topicdata.datavalidate=='FAI' %}
-			<i class="icon-remove-circle" style="color:Firebrick"></i>
-			{% elif topicdata.datavalidate=='STOP' %}
-			<i class="icon-ban-circle" style="color:DimGray"></i>
+			{% if  topicdata.datavalidate.title!='' %}
+			<a href="#pop-datavalidate-{{topicdata.topictable}}" data-toggle="modal">
 			{% endif %}
-
-			</h1>
-			主题校验
+				<h1>
+				{% if  topicdata.datavalidate.stats=='ING' %}
+				<i class="icon-refresh" style="color:RoyalBlue;"></i>
+				{% elif topicdata.datavalidate.stats=='WAR' %}
+				<i class="icon-warning-sign" style="color:Goldenrod"></i>
+				{% elif topicdata.datavalidate.stats=='SUC' %}
+				<i class="icon-ok-circle" style="color:green"></i>
+				{% elif topicdata.datavalidate.stats=='FAI' %}
+				<i class="icon-remove-circle" style="color:Firebrick"></i>
+				{% elif topicdata.datavalidate.stats=='STOP' %}
+				<i class="icon-ban-circle" style="color:DimGray"></i>
+				{% endif %}
+				</h1>
+				主题校验
+			{% if topicdata.datavalidate.title!='' %}
+			</a>
+			<div id="pop-datavalidate-{{topicdata.topictable}}" class="modal hide" style="display: none;" aria-hidden="true">
+              	<div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button">×</button>
+                <h3>{{topicdata.datavalidate.title}}</h3>
+                </div>
+                <div class="modal-body">
+                <p>{{topicdata.datavalidate.memo}}</p>
+                </div>
+            </div>
+			{% endif %}
 			</div>   
 			   
 			<div class="span1" style="text-align:center;margin:-10px 10px"><br><h3 style="color:MediumBlue"><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i></h3></div>
 			  
 			<div class="span1" style="text-align:center;margin:0px 10px">
+			{% if topicdata.datawrit.title!='' %}
+			<a href="#pop-datawrit-{{topicdata.topictable}}" data-toggle="modal">
+			{% endif %}
 			<h1>
-
-				{% if  topicdata.datawrit=='ING' %}
+				{% if  topicdata.datawrit.stats=='ING' %}
 				<i class="icon-refresh" style="color:RoyalBlue;"></i>
-				{% elif  topicdata.datawrit=='WAR' %}
+				{% elif  topicdata.datawrit.stats=='WAR' %}
 				<i class="icon-warning-sign" style="color:Goldenrod"></i>
-				{% elif topicdata.datawrit=='SUC' %}
+				{% elif topicdata.datawrit.stats=='SUC' %}
 				<i class="icon-ok-circle" style="color:green"></i>
-				{% elif topicdata.datawrit=='FAI' %}
+				{% elif topicdata.datawrit.stats=='FAI' %}
 				<i class="icon-remove-circle" style="color:Firebrick"></i>
-				{% elif topicdata.datawrit=='STOP' %}
+				{% elif topicdata.datawrit.stats=='STOP' %}
 				<i class="icon-ban-circle" style="color:DimGray"></i>
 				{% endif %}
-
 			</h1>
-			数据写入	  
-			</div> 
+			数据写入
+			{% if topicdata.datawrit.title!='' %}
+			</a>
+				<div id="pop-datawrit-{{topicdata.topictable}}" class="modal hide" style="display: none;" aria-hidden="true">
+              	<div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button">×</button>
+                <h3>{{topicdata.datawrit.title}}</h3>
+				  </div>
+				  <div class="modal-body">
+                <p>{{topicdata.datawrit.memo}}</p>
+              </div>
+            </div>
+			{% endif %}
+			</div>
 			
 			<div class="span2" >
             <h6 style="font-weight: normal;">主题数据来源：
-
+				{% for  r in topicdata.datarelationlist %}
+				{% if loop.index0 ==0 %}
+				 <hr  style='margin:0px'>
+				{% else %}
+					<br>
+				{% endif %}
+				{{loop.index0 +1}}.{{r.fronttablecode}}:
+				{{r.fronttablename}}
+				{% endfor %}
 			</h6>
       		</div>  
 			   
