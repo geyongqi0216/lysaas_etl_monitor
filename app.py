@@ -19,14 +19,11 @@ def index():
 
 @app.route("/etlmonitor/datasync-topic")
 def datasync_topic():
-    date=pandect()
-    print(date.topicname[0])
-    topiclist = [date]
-    return render_template('datasync-topic.html',topiclist=topiclist)
+    return render_template('datasync-topic.html', topiclist=pandect_topic())
 
 @app.route("/etlmonitor/datasync-table")
 def datasync_table():
-    return render_template('datasync-table.html')
+    return render_template('datasync-table.html', tablelist=pandect_table())
 
 
 if __name__ == "__main__":
