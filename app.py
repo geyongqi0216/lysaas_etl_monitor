@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import render_template
-from flask import redirect,url_for
+from flask import redirect
 from service.pandect import *
 app = Flask(__name__)
 
@@ -21,8 +21,7 @@ def index():
 def datasync_topic():
     date=pandect()
     print(date.topicname[0])
-    topiclist = []
-    topiclist.append(date)
+    topiclist = [date]
     return render_template('datasync-topic.html',topiclist=topiclist)
 
 @app.route("/etlmonitor/datasync-table")
