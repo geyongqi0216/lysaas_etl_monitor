@@ -23,10 +23,8 @@
 		{% for topicdata in topiclist %}	
 		<!-- 单行数据显示 -->
 		<div class="row-fluid" style="margin:0px 0px 0px 10px; ">
-		
-			<div class="span1">
-			</div>   
-		
+
+			<div class="span1" ></div>
 			<div class="span2" ><!-- 代替第一个换行，并在最后显示一个分割线段 -->
            	<h6> 主题名：{{topicdata.topicname}}
 			<br>
@@ -71,7 +69,7 @@
 			<div class="span1" style="text-align:center;;margin:-10px 10px"><br><h3 style="color:MediumBlue"><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i><i class="icon-chevron-right"></i></h3></div>
 			  
 			<div class="span1" style="text-align:center;margin:0px 10px">
-			{% if  topicdata.datahandle.title!='' %}
+			{% if topicdata.datahandle.title!='' %}
 			<a href="#pop-datahandle-{{topicdata.topictable}}" data-toggle="modal">
 			{% endif %}
 				<h1>
@@ -170,22 +168,52 @@
 			{% endif %}
 			</div>
 			
-			<div class="span2" >
-            <h6 style="font-weight: normal;">主题数据来源：
-				{% for  r in topicdata.datarelationlist %}
-				{% if loop.index0 ==0 %}
-				 <hr  style='margin:0px'>
-				{% else %}
-					<br>
-				{% endif %}
-				{{loop.index0 +1}}.{{r.fronttablecode}}:
-				{{r.fronttablename}}
-				{% endfor %}
-			</h6>
-      		</div>  
+			<div class="span2" style="vertical-align: middle;text-align:center;margin-top: 20px;">
+			<a href="#pop-datarelation-{{topicdata.tableid}}" data-toggle="modal">
+				<h5 style="font-weight: normal;"><li class="icon-zoom-in"></li>&nbsp;主题数据来源</h5>
+			</a>
+				<div id="pop-datarelation-{{topicdata.tableid}}" class="modal hide" style="display: none;" aria-hidden="true">
+					<div class="modal-header">
+					<button data-dismiss="modal" class="close" type="button">×</button>
+					<h3>{{topicdata.topicname}}被引用于</h3>
+					</div>
+					<div class="modal-body">
+					{% for  r in topicdata.datarelationlist %}
+					<p>{{loop.index0 +1}}.{{r.fronttablecode}}:
+					{{r.fronttablename}}</p>
+						{% endfor %}
+					</div>
+				 </div>
+
+ 				<!--
+ 				<hr width="70%" style="margin:0px">
+				{# if topicdata.dashboardlist =='' #}
+				未维护报表<br>
+				<a href="javascript:">点此处维护</a>
+				{# else  #}
+				<a href="#pop-dashboard-{topicdata.tableid}" data-toggle="modal">
+				<h5 style="font-weight: normal;"><li class="icon-bar-chart"></li>&nbsp;查看应用报表</h5>
+				</a>
+
+				 <div id="pop-dashboard-{topicdata.tableid}" class="modal hide" style="display: none;" aria-hidden="true">
+					<div class="modal-header">
+					<button data-dismiss="modal" class="close" type="button">×</button>
+					<h3>{topicdata.topicname}被引用于</h3>
+					</div>
+					<div class="modal-body">
+						{# for topicd in topicdata.dashboardlist #}
+					<p>{{loop.index0 +1}}.{topicd.behindtablename}</p>
+						{# endfor #}
+					</div>
+				 </div>
+
+				{# endif #}
+					-->
+      		</div>
 			   
 		</div>
-		<hr> <!-- 分隔符 -->
+
+ 				<hr  style="margin:15px"> <!-- 分隔符 -->
     	<!-- 一行完成 -->
     	{% endfor %}
 

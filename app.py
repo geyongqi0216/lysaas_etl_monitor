@@ -19,15 +19,15 @@ def index():
 
 @app.route("/etlmonitor/datasync-topic")
 def datasync_topic():
-    return render_template('datasync-topic.html', topiclist=pandect())
+    return render_template('datasync-topic.html', topiclist=pandect_topic())
 
 @app.route("/etlmonitor/datasync-table")
 def datasync_table():
-    return render_template('datasync-table.html', tablelist=pandect_table())
+    return render_template('datasync-table.html', tablelist=pandect_table_demo())
 
 
 if __name__ == "__main__":
-    app.run('0.0.0.0', '8000')
+    app.run('192.168.2.126', '8000')
 
 
 

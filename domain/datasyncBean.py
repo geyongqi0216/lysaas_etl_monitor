@@ -13,7 +13,7 @@ class Table:
 
 
 class Topic:
-    def __init__(self, topicname, topictable, topictime, dataget, datahandle, datavalidate, datawrit, datarelationlist):
+    def __init__(self, topicname, topictable, topictime, dataget, datahandle, datavalidate, datawrit, datarelationlist,dashboardlist):
         self.topicname = topicname
         self.topictable = topictable
         self.topictime = topictime
@@ -22,6 +22,7 @@ class Topic:
         self.datavalidate = datavalidate
         self.datawrit = datawrit
         self.datarelationlist = datarelationlist
+        self.dashboardlist = dashboardlist
 
 
 

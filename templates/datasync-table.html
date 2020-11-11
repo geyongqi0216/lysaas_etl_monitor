@@ -37,8 +37,12 @@
                           <td style="vertical-align: middle"><h5>{{tableinfo.remark}}</h5></td>
                           <td style="vertical-align: middle;text-align:center;">
 
-                              <a href="#pop-syncstats-{{tableinfo.tableid}}" data-toggle="modal">
 
+                              {% if tableinfo.syncstats.title == ''%}
+                              <a href="javascript">
+                                  {% else %}
+                              <a href="#pop-syncstats-{{tableinfo.tableid}}" data-toggle="modal">
+                             {% endif %}
                           <h4 style="margin:0px">
                               	{% if tableinfo.syncstats.stats=='ING' %}
                                 <i class="icon-refresh" style="color:RoyalBlue;"></i>
@@ -71,7 +75,7 @@
                                 <div class="modal-body">
                                 <p>{{tableinfo.syncstats.memo}}</p>
                                 </div>
-                            </div>
+                              </div>
 
                           </td>
 

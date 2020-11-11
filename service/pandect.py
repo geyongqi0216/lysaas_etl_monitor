@@ -20,7 +20,6 @@ def get_app_row_sql(id, lab):
 
     return sql
 
-
 # 计算某个主题依赖的步骤执行状态，id 主题id,level 依赖层级
 def get_front_state(id,level):
     flag_success = 0
@@ -116,7 +115,7 @@ def pandect_topic():
         for relation in relation_result:
             if len(relation) != 0:
                 datarelationlist.append(Datarelation('',relation[0],relation[1],'','',''))
-        topic = Topic(topicname,topictable,topictime,dataget,datahandle,datavalidate,datawrit,datarelationlist)
+        topic = Topic(topicname,topictable,topictime,dataget,datahandle,datavalidate,datawrit,datarelationlist,'')
         topic_list.append(topic)
     return topic_list
 
@@ -130,7 +129,10 @@ def pandect_topic_demo():
     datarelationlist = [Datarelation('', 'wx_order', '微信订单', '', '', ''),
                         Datarelation('', 'pos_order', '线下订单', '', '', ''),
                         Datarelation('', 'tm_order', '淘宝订单', '', '', '')]
-    data.append(Topic('app_order_item', 'app_order_item', '2020-11-10 15:00:00', dataget, datahandle, datavalidate, datawrit, datarelationlist))
+    dashboardlist = [Datarelation('', '', '', '', 'dabo_order', '销售类报表'),
+                        Datarelation('', '', '', '', '', '商品类报表'),
+                        Datarelation('', '', '', '', 'dabo_guide', '导购类报表')]
+    data.append(Topic('app_order', '订单主题', '2020-11-10 15:00:00', dataget, datahandle, datavalidate, datawrit, datarelationlist,dashboardlist))
     return data
 
 
@@ -140,19 +142,9 @@ def pandect_table_demo():
                         Datarelation('', '', '', '', 'app_member', '会员主题'),
                         Datarelation('', '', '', '', 'app_guide', '导购主题')]
     syncstats = Stepstats('SUC', '一切正常', '这里看起来没什么信息')
-    data.append(Table('crm_shop', '1', 'src_shop', '店铺信息', '全渠道店铺基础信息', syncstats, '2020-01-01 15:37', '1', '2020-01-01~2020-01-07', datarelationlist))
+    data.append(Table('crm_shop', '1', 'src_shop', '店铺信息', '全渠道店铺基础信息', syncstats, '2020-01-01 15:37', '99', '2020-01-01~2020-01-07', datarelationlist))
     return data
 
 
-
-
-
 if __name__ == '__main__':
-    # data = pandect()
-    # print(data.topicname, data.datawrit)
-    # if data.topicname[0] == '123':
-    #     print(True)
-    # else:
-    #     print(False)
-    # test()
-    print(pandect())
+     data = pandect_table_demo()
