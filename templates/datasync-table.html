@@ -40,36 +40,36 @@
                               <a href="#pop-syncstats-{{tableinfo.tableid}}" data-toggle="modal">
 
                           <h4 style="margin:0px">
-                              	{% if tableinfo.syncstats=='ING' %}
+                              	{% if tableinfo.syncstats.stats=='ING' %}
                                 <i class="icon-refresh" style="color:RoyalBlue;"></i>
                           </h4>
                                 正在执行
-                                {% elif tableinfo.syncstats=='WAR' %}
+                                {% elif tableinfo.syncstats.stats=='WAR' %}
                                 <i class="icon-warning-sign" style="color:Goldenrod"></i>
                           </h4>
                                 数据告警
-                                {% elif tableinfo.syncstats=='SUC' %}
+                                {% elif tableinfo.syncstats.stats=='SUC' %}
                                 <i class="icon-ok-circle" style="color:green"></i>
                           </h4>
                                 执行成功
-                                {% elif tableinfo.syncstats=='FAI' %}
+                                {% elif tableinfo.syncstats.stats=='FAI' %}
                                 <i class="icon-remove-circle" style="color:Firebrick"></i>
                           </h4>
                                 执行失败
-                                {% elif tableinfo.syncstats=='STOP' %}
+                                {% elif tableinfo.syncstats.stats=='STOP' %}
                                 <i class="icon-ban-circle" style="color:DimGray"></i>
                           </h4>
                                 未执行
                                 {% endif %}
                               </a>
 
-                              <div id="pop-datavalidate-{{tableinfo.topictable}}" class="modal hide" style="display: none;" aria-hidden="true">
+                              <div id="pop-syncstats-{{tableinfo.tableid}}" class="modal hide" style="display: none;" aria-hidden="true">
                                 <div class="modal-header">
                                 <button data-dismiss="modal" class="close" type="button">×</button>
-                                <h3>{{topicdata.datavalidate.title}}</h3>
+                                <h3>{{tableinfo.syncstats.title}}</h3>
                                 </div>
                                 <div class="modal-body">
-                                <p>{{topicdata.datavalidate.memo}}</p>
+                                <p>{{tableinfo.syncstats.memo}}</p>
                                 </div>
                             </div>
 
