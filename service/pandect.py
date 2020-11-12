@@ -9,7 +9,7 @@ def get_app_row_sql(id, lab):
         select 
             t4.table_code as front_talbe_code
             ,t4.table_name as front_talbe_name
-            ,ifnull(t3.exec_state,'stop') as front_table_state
+            ,ifnull(t3.exec_state,'STOP') as front_table_state
         from t_table_base t1 left join t_table_relation t2 on t1.id=t2.behind_table_id 
         left join v_log_daily t3 on t2.front_table_id = t3.config_id
         left join t_table_base t4 on t2.front_table_id=t4.id
@@ -46,7 +46,7 @@ def get_front_state(id,level):
         stats = 'STOP'
 
     if stats == 'FAI':
-        title = '<<<<<以下任务执行异常>>>>>'
+        title = '以下任务执行异常'
     elif stats == 'ING':
         title = '节点正在运行'
     elif stats == 'STOP':
@@ -147,22 +147,21 @@ def pandect_table_demo():
 
 def pandect_table():
     tables = []
-    rows = get_connect().query("select  	t1.id 	,t1.table_code 	,t1.table_name 	,t1.remark 	,t2.source_table_name 	,t2.exec_state 	,t2.task_end_time 	,t2.append_number 	,t2.sync_condition from t_table_base t1 left join v_log_daily t2 on t1.id = t2.config_id where table_lab ='src'")
+    rows = get_connect().query("select t1.id , t1.table_code , t1.table_name , ifnull(t1.remark,'') , ifnull(t2.source_table_name,'') ,ifnull(t2.exec_state,'STOP') , ifnull(t2.task_end_time,'') , ifnull(t2.append_number,'') , ifnull(t2.sync_condition,'') from t_table_base t1 left join v_log_daily t2 on t1.id = t2.config_id where table_lab ='src'")
     if len(rows) == 0:
         return tables
     for row in rows:
         # 获取到每一张src_表的信息
-        sourcetablename = None
-        tableid = None
-        targettablename = None
-        tablename = None
-        remark = None
+        sourcetablename = ''
+        tableid = ''
+        targettablename = ''
+        tablename = ''
+        remark = ''
         syncstats = None
-        synctime = None
-        syncappend = None
-        synccondition = None
+        synctime = ''
+        syncappend = ''
+        synccondition = ''
         datarelationlist = []
-
         sourcetablename = row[4]
         tableid = row[0]
         targettablename =row[1]
@@ -180,4 +179,4 @@ def pandect_table():
     return tables
 
 if __name__ == '__main__':
-    pandect_table()
+    pandect_topic()

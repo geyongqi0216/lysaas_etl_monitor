@@ -7,14 +7,17 @@ app = Flask(__name__)
 # 视图函数 总览页面
 
 
+@app.route("/")
+def root():
+    return redirect('/etlmonitor/index')
+
 @app.route("/etlmonitor")
 def default():
     return redirect('/etlmonitor/index')
 
 @app.route("/etlmonitor/index")
 def index():
-    #pendect()
-    return render_template('myindex.html', table_name='app_order')
+    return render_template('myindex.html')
 
 
 @app.route("/etlmonitor/datasync-topic")

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head><base href="./">
-<title>USF优服务框架后台</title>
+<title>ETL监控</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <script>document.write('<link rel="stylesheet" href="../static/css/bootstrap.min.css?' + new Date().getTime() + '"/>')</script>
@@ -24,8 +24,8 @@
 <body>
 
 <!--Header-part-->
-<div id="header" >
-  <h1><a href="/etlmonitor" ><img alt="userscrm" src="../static/img/logo.png" width="160" height="80" ></a></h1>
+<div id="header">
+  <h1><a href="/etlmonitor" style="padding-top: 10px;"><img alt="userscrm" src="../static/img/logo.png" width="160" height="80" ></a></h1>
 </div>
 <!--close-Header-part-->
 <!--top-Header-menu-->
@@ -34,7 +34,7 @@
     <li>
     <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
     <i class="icon icon-user"></i>
-	<span class="text">${sessionScope.mUserEntity.userName},您好!</span> 
+	<span class="text">您好!</span>
 	</a></li>
 	<!--b class="caret"></b></a>S
       <ul class="dropdown-menu">
@@ -73,7 +73,7 @@
    
     <li id="datasync" class="submenu"><a href="javascript:"><i class="icon icon-th-list"></i><span>ETL监控</span> </a>
       <ul>
-        <li id="datasync-topic"><a href="datasync-topic">主题状态监控1</a></li>
+        <li id="datasync-topic"><a href="datasync-topic">主题状态监控</a></li>
         <li id="datasync-table"><a href="datasync-table">数据同步监控</a></li>
         <li id="datasync-o"><a href="datasync-o.jsp">其他</a></li>
       </ul>
@@ -90,8 +90,8 @@
     <li id="task" class="submenu"><a href="javascript:"><i class="icon icon-th-list"></i><span>任务管理</span> </a>
       <ul>
         <li id="task-cycle"><a href="task-cycle.jsp">执行周期</a></li>
-        <li id=""><a href="">邮件发送</a></li>
-        <li id=""><a href="">历史记录</a></li>
+        <li id="" ><a href="">邮件发送</a></li>
+        <li id="" ><a href="">历史记录</a></li>
       </ul>
     </li>
    
