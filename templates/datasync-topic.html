@@ -167,48 +167,54 @@
             </div>
 			{% endif %}
 			</div>
-			
+
 			<div class="span2" style="vertical-align: middle;text-align:center;margin-top: 20px;">
-			<a href="#pop-datarelation-{{topicdata.tableid}}" data-toggle="modal">
-				<h5 style="font-weight: normal;"><li class="icon-zoom-in"></li>&nbsp;主题数据来源</h5>
-			</a>
-				<div id="pop-datarelation-{{topicdata.tableid}}" class="modal hide" style="display: none;" aria-hidden="true">
-					<div class="modal-header">
-					<button data-dismiss="modal" class="close" type="button">×</button>
-					<h3>{{topicdata.topicname}}被引用于</h3>
-					</div>
-					<div class="modal-body">
-					{% for  r in topicdata.datarelationlist %}
-					<p>{{loop.index0 +1}}.{{r.fronttablecode}}:
-					{{r.fronttablename}}</p>
-						{% endfor %}
-					</div>
-				 </div>
 
  				<!--
- 				<hr width="70%" style="margin:0px">
-				{# if topicdata.dashboardlist =='' #}
-				未维护报表<br>
-				<a href="javascript:">点此处维护</a>
-				{# else  #}
-				<a href="#pop-dashboard-{topicdata.tableid}" data-toggle="modal">
-				<h5 style="font-weight: normal;"><li class="icon-bar-chart"></li>&nbsp;查看应用报表</h5>
-				</a>
-
-				 <div id="pop-dashboard-{topicdata.tableid}" class="modal hide" style="display: none;" aria-hidden="true">
+			<a href="#pop-datarelation-{topicdata.tableid}}" data-toggle="modal">
+				<h5 style="font-weight: normal;"><li class="icon-zoom-in"></li>&nbsp;主题数据来源</h5>
+			</a>
+				<div id="pop-datarelation-{topicdata.tableid}}" class="modal hide" style="display: none;" aria-hidden="true">
 					<div class="modal-header">
 					<button data-dismiss="modal" class="close" type="button">×</button>
-					<h3>{topicdata.topicname}被引用于</h3>
+					<h3>{topicdata.topicname}}被引用于</h3>
 					</div>
-					<div class="modal-body">
-						{# for topicd in topicdata.dashboardlist #}
-					<p>{{loop.index0 +1}}.{topicd.behindtablename}</p>
+					<div class="modal-body" style="display: inline-block;"></div>
+					<div class="modal-body" style="text-align:left;display: inline-block;">
+					{# for  r in topicdata.datarelationlist #}
+					<p>{loop.index0 +1}}.{r.fronttablecode}}:
+					{r.fronttablename}}</p>
 						{# endfor #}
 					</div>
+					<div class="modal-body" style="display: inline-block;"></div>
 				 </div>
-
-				{# endif #}
+ 				<hr width="70%" style="margin:0px">
 					-->
+
+				{% if topicdata.dashboardlist =='' %}
+				未维护看板<br>
+				<!--`````a href="javascript:">点此处维护</a-->
+				{% else %}
+					<div>
+					<h5>被以下看板引用</h5>
+ 					<hr width="70%" style="margin:0px">
+					<div >
+						{% for topicd in topicdata.dashboardlist %}
+							{% if loop.index0<2 or (len(topicdata.dashboardlist)<3 and loop.index0==2) %}
+								<p>{{loop.index0 +1}}.{{topicd.behindtablename}}</p>
+							{% endif %}
+						{% endfor %}
+						{% if (len(topicdata.dashboardlist)>2) %}
+							<a title="" id="example4" data-content="主题 {{topicdata.topicname}} 被以下看板引用
+							{% for topicd in topicdata.dashboardlist %}
+								<br>{{loop.index0 +1}}.{{topicd.behindtablename}}
+							{% endfor %}"
+						   data-placement="left" data-toggle="popover" class="btn btn-success" href="javascript:"
+						   data-original-title="看板信息">更多看板信息</a>
+						{% endif %}
+					</div>
+				 </div>
+				{% endif %}
       		</div>
 			   
 		</div>
