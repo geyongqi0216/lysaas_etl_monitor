@@ -220,11 +220,22 @@ $("#passwordFormsubmit").click(function(){
 	else if(oldpsd==repsd)
 	{	$("#passwordFormerrorInfo").text('新老密码不能相同');}
 	else{
-		$("#passwordForm-oldpsd").val(hex_sha1(oldpsd));
-		$("#passwordForm-newpsd").val(hex_sha1(newpsd));
-		$("#passwordForm-repsd").val(hex_sha1(repsd));
-		$("#passwordForm").submit();
-		
+        var mdata = {};
+	    mdata['passwordForm-oldpsd'] = hex_sha1(oldpsd);
+        mdata['passwordForm-newpsd'] = hex_sha1(newpsd);
+        mdata['passwordForm-repsd'] = hex_sha1(repsd);
+        $.ajax({
+            type: 'POST',
+            url: './newpwd',
+            data: mdata,
+            dataType: 'json',
+            success:function (result) {
+                    alert(result);
+                    if(result == '密码修改完成')
+
+            }
+        });
+
 	}
 })
 

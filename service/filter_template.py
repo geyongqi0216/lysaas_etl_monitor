@@ -14,7 +14,7 @@ def login_filter():
         pathsp = fullpath.split("/")
         for i, path in enumerate(pathsp):
             print(str(i) + ":" + path)
-        allowvisit = {"etlmonitor": {"forget", "register", "login", "do_login"}, "share": {}}
+        allowvisit = {"etlmonitor": {"forget", "register", "login", "do_login"}, "static": {}}
         allowlist = allowvisit.get(pathsp[1])
         if allowlist is not None:
             if len(allowlist) > 0:

@@ -1,6 +1,5 @@
-# 登录
 import datetime
-from flask import request, session, url_for, render_template
+from flask import request, session, url_for, render_template, json
 from werkzeug.utils import redirect
 from dao.DBServer import get_connect
 
@@ -15,14 +14,11 @@ def get_login():
         session['user.id'] = str(rows[0][0])
         session['user.username'] = str(rows[0][1])
         session['user.usercode'] = str(rows[0][2])
-        session['user.lastupdate'] = str(rows[0][3])
-        session['user.effective'] = (datetime.time.datetime.now() + datetime.timedelta(minutes=int(30))).strftime("%Y-%m-%d %H:%M:%S")
-
+        session['user.effective'] = (datetime.datetime.now() + datetime.timedelta(minutes=int(30))).strftime("%Y-%m-%d %H:%M:%S")
         return redirect(url_for('index'))
     return render_template('login.html', errorInfo='用户名或密码错误')  # errorInfo对应页面参数errorInfo
 
 
-# 注册
 def get_register():
     conn = get_connect()
     if request.method == 'GET':
@@ -41,6 +37,7 @@ def get_register():
             conn.query(sql)
             return render_template('register_ok.html')
 
+
 # 修改
 def get_update():
     # 传进来三个密码一个用户名
@@ -48,18 +45,17 @@ def get_update():
     #
     # 查找数据库有没有这个人，密码 是：继续
     # 进行修稿
-    username = request.form.get('username')  # 从表单中获取数据
-    old_password = request.form.get('old_password')
-    new_password = request.form.get('new_password')
-    new_password2 = request.form.get('new_password2')
+    userid = session.get("user.id")  # 从表单中获取数据
+    old_password = request.form.get('passwordForm-oldpsd')
+    new_password = request.form.get('passwordForm-newpsd')
+    new_password2 = request.form.get('passwordForm-repsd')
     if new_password == new_password2:
-        sql = f'select id,username,usercode,password,lastupdate from t_user where username = \'{username}\' and password = \'{old_password}\''
         conn = get_connect()
+        sql = f'select id from t_user where id = \'{userid}\' and password = \'{old_password}\''
         data = conn.query(sql)
         if len(data) > 0:
-            if data[0][1] == username and data[0][3] == old_password:
-                id = data[0][0]
-                sql = f'update t_user password = \'{new_password}\' where id =\'{id}\''
+                sql = f'update t_user set password = \'{new_password}\' where id =\'{userid}\''
                 conn.execute(sql)
-                return
-    return
+                return json.dumps("密码修改完成", ensure_ascii=False)
+        return json.dumps("原始密码错误", ensure_ascii=False)
+    return json.dumps("两次密码不一致",ensure_ascii=False)

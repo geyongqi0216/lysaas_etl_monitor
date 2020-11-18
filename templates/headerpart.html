@@ -18,6 +18,8 @@
 <script>document.write('<link rel="stylesheet" href="../static/css/reveal.css?' + new Date().getTime() + '"/>')</script>
 <script>document.write('<link rel="stylesheet" href="../static/font-awesome/css/font-awesome.css?' + new Date().getTime() + '"/>')</script>
 <script>document.write('<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700,800?' + new Date().getTime() + '" type="text/css" />')</script>
+
+
 </head>
 <meta charset="UTF-8">
 <base href="/etlmonitor" />
@@ -126,11 +128,7 @@
   </div>
 				 <div id="passwordFormerrorInfo" style="color: red;" align="center"></div>
 
-					<form id="passwordForm" action="../manage/newPassword" method="post" class="form-horizontal">
-
-		              <div hidden="hidden">
-		                <input id="passwordForm-id" name="passwordForm-usercode" type="text" class="span3" placeholder="id" value="${sessionScope.mUserEntity.id}">
-		              </div>
+					<div id="passwordForm"  class="form-horizontal">
 		              <label class="control-label">当前密码</label>
 		              <div class="controls">
 		                <input id="passwordForm-oldpsd" name="passwordForm-oldpsd"  type="password" class="span3" placeholder="现在使用中的密码">
@@ -146,10 +144,10 @@
 		              
 		            
 		            <div class="form-actions"  style="text-align-last:justify;text-align:justify;text-justify:distribute-all-lines;">
-		             <a id="passwordFormsubmit"  name="passwordFormsubmit" type="submit" class="btn btn-success" >确认 </a>
-		              <a  data-dismiss="modal" class="btn btn-danger" href="#">取消</a>
+		             <a id="passwordFormsubmit"  name="passwordFormsubmit"  class="btn btn-success" href="javascript:subnewpwd()" >确认 </a>
+		              <a data-dismiss="modal" class="btn btn-danger" href="javascript:">取消</a>
 		            </div>
-		          </form>
+		          </div>
 </div>
 
 
