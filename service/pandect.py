@@ -3,6 +3,7 @@ from domain.datasyncBean import *
 from domain.userDomain import User
 from flask import Flask, render_template, request, redirect, session, url_for
 
+
 from domain.datasyncBean import Stepstats, Datarelation, Topic
 
 
@@ -17,14 +18,14 @@ def get_app_row_sql(id, lab):
         left join t_table_base t4 on t2.front_table_id=t4.id
         where  t1.table_lab ='topic' 
     """
-    sql = sql + "and t1.id='" + id + "'"
-    sql = sql + "and t4.table_lab='" + lab + "'"
+    sql = sql+"and t1.id='"+id+"'"
+    sql = sql+"and t4.table_lab='"+lab+"'"
 
     return sql
 
 
 # 计算某个主题依赖的步骤执行状态，id 主题id,level 依赖层级
-def get_front_state(id, level):
+def get_front_state(id,level):
     flag_success = 0
     flag_stop = 0
     flag_fal = 0
@@ -45,7 +46,7 @@ def get_front_state(id, level):
         stats = 'ING'
     if flag_stop == 0 and flag_fal == 0 and flag_success != 0:
         stats = 'SUC'
-    if flag_stop != 0 and flag_fal == 0 and flag_success == 0:
+    if flag_stop != 0 and flag_fal == 0 and flag_success ==0:
         stats = 'STOP'
 
     if stats == 'FAI':
@@ -60,11 +61,11 @@ def get_front_state(id, level):
     if stats == 'FAI':
         for datum in data:
             if datum[2] == 'FAI':
-                memo = datum[0] + '-' + datum[1] + ' , '
+               memo = datum[0]+'-'+datum[1]+' , '
 
     # 三个属性值拼接完成构造对象
 
-    return Stepstats(stats, title, memo)
+    return Stepstats(stats,title,memo)
 
 
 # 主函数
@@ -90,34 +91,34 @@ def pandect_topic():
         # 给属性赋值
         topicname = row[1]
         topictable = row[2]
-        # 获取节点执行时间
+        #获取节点执行时间
         re = get_connect().query("select timestamp_v  from v_log_daily where config_id = '" + str(row[0]) + "'")
         if len(re) != 0:
             topictime = re[0][0].strftime("%Y-%m-%d %H:%M:%S")
         # step1 数据获取
-        dataget = get_front_state(row[0], 'src')
+        dataget = get_front_state(row[0],'src')
         if dataget.stats == 'FAI' or dataget.stats == 'STOP':
-            datahandle = Stepstats('STOP', '提示', '前置节点失败')
+            datahandle = Stepstats('STOP','提示','前置节点失败')
         else:
-            datahandle = get_front_state(row[0], 'exec')
+            datahandle = get_front_state(row[0],'exec')
 
-        if datahandle.stats == 'FAI' or datahandle.stats == 'STOP':
-            datavalidate = Stepstats('STOP', '提示', '前置节点失败')
+        if datahandle.stats == 'FAI' or datahandle.stats == 'STOP' :
+            datavalidate = Stepstats('STOP','提示','前置节点失败')
         else:
-            datavalidate = get_front_state(row[0], 'check')
+            datavalidate = get_front_state(row[0],'check')
 
         if datavalidate.stats == 'FAI' or datavalidate.stats == 'STOP':
-            datawrit = Stepstats('STOP', '提示', '前置节点失败')
+            datawrit = Stepstats('STOP','提示','前置节点失败')
         else:
-            datawrit = get_front_state(row[0], 'app')
+            datawrit = get_front_state(row[0],'app')
 
         datarelationlist = []
-        # 获取表依赖关系
-        relation_result = conn.query("select t2.table_code ,t2.table_name from t_table_relation t1 left join t_table_base t2  on t1.front_table_id = t2.id where t1.behind_table_id='" + str(row[0]) + "'")
+        #获取表依赖关系
+        relation_result=conn.query("select t2.table_code ,t2.table_name from t_table_relation t1 left join t_table_base t2  on t1.front_table_id = t2.id where t1.behind_table_id='"+str(row[0])+"'")
         for relation in relation_result:
             if len(relation) != 0:
-                datarelationlist.append(Datarelation('', relation[0], relation[1], '', '', ''))
-        topic = Topic(topicname, topictable, topictime, dataget, datahandle, datavalidate, datawrit, datarelationlist, '')
+                datarelationlist.append(Datarelation('',relation[0],relation[1],'','',''))
+        topic = Topic(topicname,topictable,topictime,dataget,datahandle,datavalidate,datawrit,datarelationlist,'')
         topic_list.append(topic)
     return topic_list
 
@@ -132,9 +133,9 @@ def pandect_topic_demo():
                         Datarelation('', 'pos_order', '线下订单', '', '', ''),
                         Datarelation('', 'tm_order', '淘宝订单', '', '', '')]
     dashboardlist = [Datarelation('', '', '', '', 'dabo_order', '销售类报表'),
-                     Datarelation('', '', '', '', '', '商品类报表'),
-                     Datarelation('', '', '', '', 'dabo_guide', '导购类报表')]
-    data.append(Topic('app_order', '订单主题', '2020-11-10 15:00:00', dataget, datahandle, datavalidate, datawrit, datarelationlist, dashboardlist))
+                        Datarelation('', '', '', '', '', '商品类报表'),
+                        Datarelation('', '', '', '', 'dabo_guide', '导购类报表')]
+    data.append(Topic('app_order', '订单主题', '2020-11-10 15:00:00', dataget, datahandle, datavalidate, datawrit, datarelationlist,dashboardlist))
     return data
 
 
@@ -167,18 +168,58 @@ def pandect_table():
         datarelationlist = []
         sourcetablename = row[4]
         tableid = row[0]
-        targettablename = row[1]
-        tablename = row[2]
+        targettablename =row[1]
+        tablename =row[2]
         remark = row[3]
         synctime = row[6]
         syncappend = row[7]
-        synccondition = row[8]
-        syncstats = Stepstats(row[5], '提示', '测试')
-        data = get_connect().query("select t2.id,t2.table_code,t2.table_name from t_table_relation t1 left join t_table_base t2 on t1.behind_table_id = t2.id and t2.table_lab ='topic' where  t1.front_table_id='" + str(row[0]) + "'")
+        synccondition =  row[8]
+        syncstats = Stepstats(row[5],'提示','测试')
+
+        data = get_connect().query("select t2.id,t2.table_code,t2.table_name from t_table_relation t1 left join t_table_base t2 on t1.behind_table_id = t2.id and t2.table_lab ='topic' where  t1.front_table_id='" + str(row[0]) +"'")
         for tb in data:
-            datarelationlist.append(Datarelation('', '', '', tb[0], tb[1], tb[2]))
-        tables.append(Table(sourcetablename, tableid, targettablename, tablename, remark, syncstats, synctime, syncappend, synccondition, datarelationlist))
+            datarelationlist.append(Datarelation('','','',tb[0],tb[1],tb[2]))
+        tables.append(Table(sourcetablename,tableid,targettablename,tablename,remark,syncstats,synctime,syncappend,synccondition,datarelationlist))
     return tables
+
+
+# 登录
+def get_login():
+    conn = get_connect()
+    if request.method == 'GET':
+        return render_template('login.html')
+    else:
+        username = request.form.get('username')  # 从表单中获取数据
+        password = request.form.get('password')
+        sql = f'select id,username,usercode,password,lastupdate from t_user where username = \'{username}\''
+        rows = conn.query(sql)
+        for row in rows:
+            row = User.to_string(row)
+            if username == row['username'] and password == row['password']:
+                session['user_info'] = username
+                return redirect('/index')  # 跳转
+        return render_template('login.html', error='用户名或密码错误')  # error对应着前面的模板语言error
+
+
+# 注册
+def get_register():
+    conn = get_connect()
+    if request.method == 'GET':
+        return render_template('register.html')
+    else:
+        username = request.form.get('username')  # 从表单中获取数据
+        usercode = request.form.get('usercode')
+        password = request.form.get('password')
+        nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        sql = f'select id,username,usercode,password,lastupdate from t_user where username = \'{username}\''
+        data = conn.query(sql)
+        if len(data) > 0:
+            return render_template('register.html', error='用户名已存在')
+        else:
+            sql = f'INSERT INTO t_user (username,usercode,password,lastupdate) VALUES (\'{username}\',\'{usercode}\',\'{password}\',\'{nowTime}\')'
+            conn.query(sql)
+            return render_template('register_ok.html')
+
 
 
 if __name__ == '__main__':
