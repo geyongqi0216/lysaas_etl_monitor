@@ -155,6 +155,7 @@ class MysqlSingleConnect(Connect):
     def execute(self, sql):
         logging.debug(sql)
         result = self.csr.execute(sql)
+        self.conn.commit()
         logging.debug(result)
         return result
 

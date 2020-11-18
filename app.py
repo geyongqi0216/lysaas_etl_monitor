@@ -23,6 +23,12 @@ def login():
     return render_template('login.html')
 
 
+@app.route("/etlmonitor/logout")
+def logout():
+    session.clear()
+    return render_template('login.html')
+
+
 @app.route("/etlmonitor/newpwd", methods=['GET', 'POST'])
 def newpwd():
     return get_update()
@@ -40,16 +46,16 @@ def do_login():
 
 @app.route("/etlmonitor/index")
 def index():
-    print("进入主页")
-    return render_template('myindex.html')
+    # return render_template('myindex.html')
+    return render_template('datasync-topic.html', topiclist=pandect_topic())
 
 
-@app.route("/etlmonitor/datasync-topic")
+@app.route("/etlmonitor/datasynctopic")
 def datasync_topic():
     return render_template('datasync-topic.html', topiclist=pandect_topic())
 
 
-@app.route("/etlmonitor/datasync-table")
+@app.route("/etlmonitor/datasynctable")
 def datasync_table():
     return render_template('datasync-table.html', tablelist=pandect_table())
 

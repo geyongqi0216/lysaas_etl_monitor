@@ -19,7 +19,6 @@
 <script>document.write('<link rel="stylesheet" href="../static/font-awesome/css/font-awesome.css?' + new Date().getTime() + '"/>')</script>
 <script>document.write('<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700,800?' + new Date().getTime() + '" type="text/css" />')</script>
 
-
 </head>
 <meta charset="UTF-8">
 <base href="/etlmonitor" />
@@ -53,7 +52,7 @@
       </ul>
     </li-->
         <li><a  href="#passwordinfo" onclick="javascript:passwordinfoPopJs()"  data-toggle="modal"><i class="icon-lock"></i> 修改密码 </a></li>
-    <li class=""><a title="" href="../manage/logout"><i class="icon icon-share-alt"></i> <span class="text">退出</span></a></li>
+    <li class=""><a title="" href="./logout"><i class="icon icon-share-alt"></i> <span class="text">退出</span></a></li>
   <li>
   </ul>
 </div>
@@ -71,17 +70,14 @@
 <!--sidebar-menu-->
 <div id="sidebar"><a href="javascript:" class="visible-phone"><i class="icon icon-home"></i> 控制台</a>
   <ul>
-    <li id=""><a href="/etlmonitor"><i class="icon icon-home"></i> <span>首页</span></a> </li>
+    <!--li id=""><a href="/etlmonitor"><i class="icon icon-home"></i> <span>首页</span></a> </li-->
    
-    <li id="datasync" class="submenu"><a href="javascript:"><i class="icon icon-th-list"></i><span>ETL监控</span> </a>
-      <ul>
-        <li id="datasync-topic"><a href="datasync-topic">主题状态监控</a></li>
-        <li id="datasync-table"><a href="datasync-table">数据同步监控</a></li>
-        <li id="datasync-o"><a href="datasync-o.jsp">其他</a></li>
-      </ul>
+    <li id="datasynctopic" ><a href="datasynctopic"><i class="icon icon-th-list"></i><span>主题状态监控</span> </a>
+    </li>
+    <li id="datasynctable" ><a href="datasynctable"><i class="icon icon-th-list"></i><span>数据同步监控</span> </a>
     </li>
    
-    <li id="monitor" class="submenu"><a href="javascript:"><i class="icon icon-th-list"></i><span>预售监控</span> </a>
+    <!-- li id="monitor" class="submenu"><a href="javascript:"><i class="icon icon-th-list"></i><span>预售监控</span> </a>
       <ul>
         <li id="monitor-main"><a href="monitor-main.jsp">监控一览</a></li>
         <li id="monitor-shop"><a href="monitor-shop.jsp">店铺监控</a></li>
@@ -116,7 +112,7 @@
       </div>
       <span class="percent">83.2%</span>
       <div class="stat">832 / 1000</div>
-    </li>
+    </li -->
   </ul>
 </div>
 <!--sidebar-menu-->
@@ -127,6 +123,7 @@
     <h3 id="shopInfoTitle">密码重置</h3>
   </div>
 				 <div id="passwordFormerrorInfo" style="color: red;" align="center"></div>
+				 <div id="passwordFormsucInfo" style="color: green;" align="center"></div>
 
 					<div id="passwordForm"  class="form-horizontal">
 		              <label class="control-label">当前密码</label>
@@ -145,7 +142,7 @@
 		            
 		            <div class="form-actions"  style="text-align-last:justify;text-align:justify;text-justify:distribute-all-lines;">
 		             <a id="passwordFormsubmit"  name="passwordFormsubmit"  class="btn btn-success" href="javascript:subnewpwd()" >确认 </a>
-		              <a data-dismiss="modal" class="btn btn-danger" href="javascript:">取消</a>
+		              <a data-dismiss="modal" class="btn btn-danger" href="javascript:">关闭</a>
 		            </div>
 		          </div>
 </div>

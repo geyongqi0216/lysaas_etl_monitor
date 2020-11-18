@@ -209,6 +209,8 @@ $("#loginformsubmit").click(function(){
 })
 
 $("#passwordFormsubmit").click(function(){
+                    $("#passwordFormerrorInfo").text('');
+                    $("#passwordFormsucInfo").text('');
 	var id=$('#passwordForm-id').val();
 	var oldpsd=$('#passwordForm-oldpsd').val();
 	var newpsd=$('#passwordForm-newpsd').val();
@@ -230,9 +232,15 @@ $("#passwordFormsubmit").click(function(){
             data: mdata,
             dataType: 'json',
             success:function (result) {
-                    alert(result);
-                    if(result == '密码修改完成')
+                    $("#passwordFormerrorInfo").text(result);
+                    if(result == '密码修改完成'){
+                    $("#passwordFormerrorInfo").text('');
+                    $("#passwordFormsucInfo").text(result);
+                    $('#passwordForm-oldpsd').val("");
+	                $('#passwordForm-newpsd').val("");
+	                $('#passwordForm-repsd').val("");
 
+                    }
             }
         });
 

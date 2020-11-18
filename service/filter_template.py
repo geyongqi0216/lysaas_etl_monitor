@@ -12,14 +12,12 @@ def login_filter():
     else:
         fullpath = request.path
         pathsp = fullpath.split("/")
-        for i, path in enumerate(pathsp):
-            print(str(i) + ":" + path)
         allowvisit = {"etlmonitor": {"forget", "register", "login", "do_login"}, "static": {}}
         allowlist = allowvisit.get(pathsp[1])
         if allowlist is not None:
             if len(allowlist) > 0:
                 for page in allowlist:
-                    if pathsp[2] == page:
+                    if len(pathsp)>2 and pathsp[2] == page:
                         isallow = True
             else:
                 isallow = True
