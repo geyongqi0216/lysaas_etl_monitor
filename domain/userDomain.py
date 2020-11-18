@@ -1,11 +1,12 @@
 
 class User:
-    def __init__(self, row):
-        self.id = row[0]
-        self.username = row[1]
-        self.usercode = row[2]
-        self.password = row[3]
-        self.lastupdate = row[4]
+    def __init__(self, id, username, usercode, password, lastupdate, effective):
+        self.id = id
+        self.username = username
+        self.usercode = usercode
+        self.password = password
+        self.lastupdate = lastupdate
+        self.effective = effective
 
     def to_string(self):
         s = "{id:{}, username:{}, usercode: {}, password:{}, lastupdate:{}}".format(
