@@ -1,5 +1,8 @@
 from dao.DBServer import *
 from domain.datasyncBean import *
+from domain.userDomain import User
+from flask import Flask, render_template, request, redirect, session, url_for
+
 
 from domain.datasyncBean import Stepstats, Datarelation, Topic
 
@@ -19,6 +22,7 @@ def get_app_row_sql(id, lab):
     sql = sql+"and t4.table_lab='"+lab+"'"
 
     return sql
+
 
 # 计算某个主题依赖的步骤执行状态，id 主题id,level 依赖层级
 def get_front_state(id,level):
@@ -62,7 +66,6 @@ def get_front_state(id,level):
     # 三个属性值拼接完成构造对象
 
     return Stepstats(stats,title,memo)
-
 
 
 # 主函数
@@ -145,6 +148,7 @@ def pandect_table_demo():
     data.append(Table('crm_shop', '1', 'src_shop', '店铺信息', '全渠道店铺基础信息', syncstats, '2020-01-01 15:37', '99', '2020-01-01~2020-01-07', datarelationlist))
     return data
 
+
 def pandect_table():
     tables = []
     rows = get_connect().query("select t1.id , t1.table_code , t1.table_name , ifnull(t1.remark,'') , ifnull(t2.source_table_name,'') ,ifnull(t2.exec_state,'STOP') , ifnull(t2.task_end_time,'') , ifnull(t2.append_number,'') , ifnull(t2.sync_condition,'') from t_table_base t1 left join v_log_daily t2 on t1.id = t2.config_id where table_lab ='src'")
@@ -177,6 +181,46 @@ def pandect_table():
             datarelationlist.append(Datarelation('','','',tb[0],tb[1],tb[2]))
         tables.append(Table(sourcetablename,tableid,targettablename,tablename,remark,syncstats,synctime,syncappend,synccondition,datarelationlist))
     return tables
+
+
+# 登录
+def get_login():
+    conn = get_connect()
+    if request.method == 'GET':
+        return render_template('login.html')
+    else:
+        username = request.form.get('username')  # 从表单中获取数据
+        password = request.form.get('password')
+        sql = f'select id,username,usercode,password,lastupdate from t_user where username = \'{username}\''
+        rows = conn.query(sql)
+        for row in rows:
+            row = User.to_string(row)
+            if username == row['username'] and password == row['password']:
+                session['user_info'] = username
+                return redirect('/index')  # 跳转
+        return render_template('login.html', error='用户名或密码错误')  # error对应着前面的模板语言error
+
+
+# 注册
+def get_register():
+    conn = get_connect()
+    if request.method == 'GET':
+        return render_template('register.html')
+    else:
+        username = request.form.get('username')  # 从表单中获取数据
+        usercode = request.form.get('usercode')
+        password = request.form.get('password')
+        nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        sql = f'select id,username,usercode,password,lastupdate from t_user where username = \'{username}\''
+        data = conn.query(sql)
+        if len(data) > 0:
+            return render_template('register.html', error='用户名已存在')
+        else:
+            sql = f'INSERT INTO t_user (username,usercode,password,lastupdate) VALUES (\'{username}\',\'{usercode}\',\'{password}\',\'{nowTime}\')'
+            conn.query(sql)
+            return render_template('register_ok.html')
+
+
 
 if __name__ == '__main__':
     pandect_topic()

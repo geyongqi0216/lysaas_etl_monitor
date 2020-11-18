@@ -1,6 +1,4 @@
 from flask import Flask, render_template, request, redirect, session, url_for
-from domain.sql_user import user_info, dl_sql, zc_sql
-
 from service.pandect import *
 app = Flask(__name__)
 app.debug = True  # 自动重启
@@ -33,47 +31,20 @@ def detail(nid):
 
 @app.route('/login', methods=['GET', 'POST'], endpoint='l1')  # endpoint 表示别名
 def login():
-    if request.method == 'GET':
-        return render_template('login.html')
-    else:
-        user = request.form.get('user')  # 从表单中获取数据
-        pwd = request.form.get('pwd')
-        ui = dl_sql()
-        for each in ui:
-            if user == each[0] and pwd == each[1]:
-                session['user_info'] = user
-                return redirect('/index')  # 跳转
-        return render_template('login.html', error='用户名或密码错误')  # error对应着前面的模板语言error
+    get_login()
 
 
-@app.route('/enroll_go', methods=['GET', 'POST'])
+@app.route('/register_go', methods=['GET', 'POST'])
 def enroll_go():
-    return render_template('enroll.html')
+    return render_template('register.html')
 
 
-@app.route('/enroll', methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def enroll():
-    if request.method == 'GET':
-        return render_template('enroll.html')
-    else:
-        user = request.form.get('user')  # 从表单中获取数据
-        pwd = request.form.get('pwd')
-        pwd2 = request.form.get('pwd2')
-        quest = False
-        ui = dl_sql()
-        for each in ui:
-            if each[0] == user:
-                quest = True
-        if pwd == pwd2 and quest == False:
-            zc_sql(user, pwd)
-            return render_template('enroll_ok.html')
-        elif quest == True:
-            return render_template('enroll.html', error='用户名已存在')
-        else:
-            return render_template('enroll.html', error='两次密码不正确')
+    get_register()
 
 
-@app.route('/enroll_ok', methods=['GET', 'POST'])
+@app.route('/register_ok', methods=['GET', 'POST'])
 def enroll_ok():
     return render_template('login.html')
 
@@ -103,6 +74,7 @@ def index():
 @app.route("/etlmonitor/datasync-topic")
 def datasync_topic():
     return render_template('datasync-topic.html', topiclist=pandect_topic())
+
 
 @app.route("/etlmonitor/datasync-table")
 def datasync_table():
