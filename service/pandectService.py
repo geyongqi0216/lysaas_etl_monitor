@@ -1,10 +1,5 @@
-from dao.DBServer import *
-from domain.datasyncBean import *
-from domain.userDomain import User
-from flask import Flask, render_template, request, redirect, session, url_for
-
-
-from domain.datasyncBean import Stepstats, Datarelation, Topic
+from dao.DBServer import get_connect
+from domain.datasyncBean import Stepstats, Datarelation, Topic, Table
 
 
 def get_app_row_sql(id, lab):
@@ -48,6 +43,9 @@ def get_front_state(id,level):
         stats = 'SUC'
     if flag_stop != 0 and flag_fal == 0 and flag_success ==0:
         stats = 'STOP'
+    # 默认没有配置relation表的话节点默认成功
+    if flag_success + flag_fal + flag_stop ==0:
+        stats = 'SUC'
 
     if stats == 'FAI':
         title = '以下任务执行异常'
@@ -110,7 +108,7 @@ def pandect_topic():
         if datavalidate.stats == 'FAI' or datavalidate.stats == 'STOP':
             datawrit = Stepstats('STOP','提示','前置节点失败')
         else:
-            datawrit = get_front_state(row[0],'app')
+            datawrit = get_front_state(row[0],'topic')
 
         datarelationlist = []
         #获取表依赖关系
@@ -151,7 +149,7 @@ def pandect_table_demo():
 
 def pandect_table():
     tables = []
-    rows = get_connect().query("select t1.id , t1.table_code , t1.table_name , ifnull(t1.remark,'') , ifnull(t2.source_table_name,'') ,ifnull(t2.exec_state,'STOP') , ifnull(t2.task_end_time,'') , ifnull(t2.append_number,'') , ifnull(t2.sync_condition,'') from t_table_base t1 left join v_log_daily t2 on t1.id = t2.config_id where table_lab ='src'")
+    rows = get_connect().query("select t1.id , t1.table_code , t1.table_name , ifnull(t1.remark,'') , ifnull(t1.source_table_code,'') ,ifnull(t2.exec_state,'STOP') , ifnull(t2.task_end_time,'') , ifnull(t2.target_number,'') , ifnull(t2.sync_condition,'') from t_table_base t1 left join v_log_daily t2 on t1.id = t2.config_id where table_lab ='src'")
     if len(rows) == 0:
         return tables
     for row in rows:
@@ -185,44 +183,10 @@ def pandect_table():
     return tables
 
 
-# 登录
-def get_login():
-    conn = get_connect()
-    if request.method == 'GET':
-        return render_template('login.html')
-    else:
-        username = request.form.get('username')  # 从表单中获取数据
-        password = request.form.get('password')
-        sql = f'select id,username,usercode,password,lastupdate from t_user where username = \'{username}\''
-        rows = conn.query(sql)
-        for row in rows:
-            row = User.to_string(row)
-            if username == row['username'] and password == row['password']:
-                session['user_info'] = username
-                return redirect('/index')  # 跳转
-        return render_template('login.html', error='用户名或密码错误')  # error对应着前面的模板语言error
-
-
-# 注册
-def get_register():
-    conn = get_connect()
-    if request.method == 'GET':
-        return render_template('register.html')
-    else:
-        username = request.form.get('username')  # 从表单中获取数据
-        usercode = request.form.get('usercode')
-        password = request.form.get('password')
-        nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        sql = f'select id,username,usercode,password,lastupdate from t_user where username = \'{username}\''
-        data = conn.query(sql)
-        if len(data) > 0:
-            return render_template('register.html', error='用户名已存在')
-        else:
-            sql = f'INSERT INTO t_user (username,usercode,password,lastupdate) VALUES (\'{username}\',\'{usercode}\',\'{password}\',\'{nowTime}\')'
-            conn.query(sql)
-            return render_template('register_ok.html')
-
-
-
 if __name__ == '__main__':
-    pandect_topic()
+    sql="insert into t_job_log (config_id,exec_state,timestamp_v) values('31','SUC','2020-11-12 16:00:00')"
+    conn=get_connect()
+    insert_result = conn.execute(sql)
+    data = conn.query("select LAST_INSERT_ID()")
+    print(insert_result)
+    print(data[0][0])
