@@ -8,6 +8,8 @@ class User:
         self.lastupdate = lastupdate
         self.effective = effective
 
+
+
     def to_string(self):
         s = "{id:{}, username:{}, usercode: {}, password:{}, lastupdate:{}}".format(
             self.id, self.username,  self.usercode, self.password, self.lastupdate)

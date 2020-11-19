@@ -200,11 +200,11 @@
  					<hr width="70%" style="margin:0px">
 					<div >
 						{% for topicd in topicdata.dashboardlist %}
-							{% if loop.index0<2 or (len(topicdata.dashboardlist)<3 and loop.index0==2) %}
+							{% if loop.index0<2 or ( topicdata.dashboardlist | length < 3 and loop.index0==2) %}
 								<p>{{loop.index0 +1}}.{{topicd.behindtablename}}</p>
 							{% endif %}
 						{% endfor %}
-						{% if (len(topicdata.dashboardlist)>2) %}
+						{% if topicdata.dashboardlist | length>2 %}
 							<a title="" id="example4" data-content="主题 {{topicdata.topicname}} 被以下看板引用
 							{% for topicd in topicdata.dashboardlist %}
 								<br>{{loop.index0 +1}}.{{topicd.behindtablename}}

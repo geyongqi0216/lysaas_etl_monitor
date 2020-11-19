@@ -47,7 +47,7 @@ def get_update():
     # 进行修稿
     userid = session.get("user.id")  # 从表单中获取数据
     old_password = request.form.get('passwordForm-oldpsd')
-    new_password = request.form.get('passwordForm-newpsd')
+    new_password = request.form.get('passwordForm-newpsd')  # 获取键入的新密码
     new_password2 = request.form.get('passwordForm-repsd')
     if new_password == new_password2:
         conn = get_connect()

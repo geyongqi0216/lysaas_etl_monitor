@@ -176,7 +176,9 @@ def pandect_table():
         synccondition =  row[8]
         syncstats = Stepstats(row[5],'提示','测试')
 
-        data = get_connect().query("select t2.id,t2.table_code,t2.table_name from t_table_relation t1 left join t_table_base t2 on t1.behind_table_id = t2.id and t2.table_lab ='topic' where  t1.front_table_id='" + str(row[0]) +"'")
+        data = get_connect().query("select t2.id,t2.table_code,t2.table_name from t_table_relation t1 "
+                                   + "left join t_table_base t2 on t1.behind_table_id = t2.id and "
+                                   + "t2.table_lab ='topic' where  t1.front_table_id='" + str(row[0]) +"'")
         for tb in data:
             datarelationlist.append(Datarelation('','','',tb[0],tb[1],tb[2]))
         tables.append(Table(sourcetablename,tableid,targettablename,tablename,remark,syncstats,synctime,syncappend,synccondition,datarelationlist))
