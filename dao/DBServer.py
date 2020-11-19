@@ -1,13 +1,10 @@
-import datetime
 import re
 import pymysql
 import logging
-
-from dao import setting
+import setting
 
 
 class Connect:
-
     def _trim(self, s):
         if s.startswith(' ') or s.endswith(' '):
             return re.sub(r"^(\s+)|(\s+)$", "", s)
@@ -130,7 +127,7 @@ class Connect:
         return sql
 
 
-class MysqlSingleConnect(Connect):
+class MysqlConnect(Connect):
     """
     没有结束时自动关闭数据库连接功能，使用时请在调用结束后手动关闭连接
     """
@@ -165,21 +162,6 @@ class MysqlSingleConnect(Connect):
             self.conn.close()
         except Exception as e:
             logging.error('close connection error ,result:{}'.format(e))
-
-
-class MysqlConnect(MysqlSingleConnect):
-
-    """
-        Mysql数据库
-    """
-    def _get_connect(self):
-        self.conn = pymysql.connect(host=setting.mysql_database_host,
-                                    port=setting.mysql_database_port,
-                                    user=setting.mysql_database_username,
-                                    password=setting.mysql_database_password,
-                                    database=setting.mysql_database_db,
-                                    charset=setting.mysql_database_charset)
-        self.csr = self.conn.cursor()
 
 
 def get_connect():

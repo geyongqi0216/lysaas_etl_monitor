@@ -1,12 +1,10 @@
 import os
-
-from service.filter_template import login_filter
-from service.pandect import *
-from service.user_manage import get_login, get_update
-
+from service.filterTemplateService import login_filter
+from service.pandectService import *
+from service.userManageService import get_login, get_update
 app = Flask(__name__)
-
 app.config['SECRET_KEY'] = os.urandom(24)
+
 
 @app.route("/")
 def root():
@@ -67,6 +65,5 @@ def do_filter():
 
 # 添加过滤器，未登陆状态或登陆超时自动进入登陆页面
 app.add_template_filter(login_filter, 'login_filter')
-
 if __name__ == "__main__":
     app.run('0.0.0.0', '8000')
