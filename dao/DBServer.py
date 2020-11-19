@@ -135,13 +135,14 @@ class MysqlConnect(Connect):
     def __init__(self):
         self._get_connect()
 
+
     def _get_connect(self):
-        self.conn = pymysql.connect(host=setting.elt_database_host,
-                                    port=setting.elt_database_port,
-                                    user=setting.elt_database_username,
-                                    password=setting.elt_database_password,
-                                    database=setting.elt_database_db,
-                                    charset=setting.elt_database_charset)
+        self.conn = pymysql.connect(host=setting.mysql_database_host,
+                                    port=setting.mysql_database_port,
+                                    user=setting.mysql_database_username,
+                                    password=setting.mysql_database_password,
+                                    database=setting.mysql_database_db,
+                                    charset=setting.mysql_database_charset)
         self.csr = self.conn.cursor()
 
     def query(self, sql):

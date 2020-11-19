@@ -111,12 +111,18 @@ def pandect_topic():
             datawrit = get_front_state(row[0],'topic')
 
         datarelationlist = []
+        dashboardlist = []
         #获取表依赖关系
         relation_result=conn.query("select t2.table_code ,t2.table_name from t_table_relation t1 left join t_table_base t2  on t1.front_table_id = t2.id where t1.behind_table_id='"+str(row[0])+"'")
         for relation in relation_result:
             if len(relation) != 0:
                 datarelationlist.append(Datarelation('',relation[0],relation[1],'','',''))
-        topic = Topic(topicname,topictable,topictime,dataget,datahandle,datavalidate,datawrit,datarelationlist,'')
+
+        relation_result=conn.query("select t2.table_code ,t2.table_name from t_table_relation t1 left join t_table_base t2  on t1.behind_table_id = t2.id where t2.table_lab ='dashboard' and t1.front_table_id ='"+str(row[0])+"'")
+        for relation in relation_result:
+            if len(relation) != 0:
+                dashboardlist.append(Datarelation('','','','',relation[0],relation[1]))
+        topic = Topic(topicname,topictable,topictime,dataget,datahandle,datavalidate,datawrit,datarelationlist,dashboardlist)
         topic_list.append(topic)
     return topic_list
 
