@@ -5,6 +5,20 @@
     <title>Title</title>
 </head>
 <body>
-<p>{{table_name}}</p>
+<h1>用户列表</h1>
+<table>
+    <!--从字典中循环读取键和值-->
+    {% for k,v in user_dict.items() %}
+    <tr>
+        <td>{{k}}</td>
+        <!--获取字典中的值有三种-->
+        <td>{{v.name}}</td>
+        <td>{{v['age']}}</td>
+        <td>{{v.get('gender')}}</td>
+        <td><a href="/detail/{{k}}">查看详情</a></td>
+    </tr>
+    <!--结束循环-->
+    {% endfor %}
+</table>
 </body>
 </html>

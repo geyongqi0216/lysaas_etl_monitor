@@ -19,32 +19,92 @@
                 <table id="" class="table table-bordered data-table">
                     <thead>
                     <tr>
-                      <th width="15%"><h5 style="margin:5px">来源</h5></th>
-                      <th width="15%"><h5 style="margin:5px">目标</h5></th>
-                      <th width="20%"><h5 style="margin:5px">说明</h5></th>
-                      <th width="10%"><h5 style="margin:5px">状态</h5></th>
-                      <th width="20%"><h5 style="margin:5px">时间</h5></th>
-                      <th width="10%"><h5 style="margin:5px">数量</h5></th>
-                      <th width="10%"><h5 style="margin:5px">更多</h5></th>
+                      <th width=""><h5 style="margin:5px">来源</h5></th>
+                      <th width=""><h5 style="margin:5px">表库</h5></th>
+                      <th width=""><h5 style="margin:5px">表名</h5></th>
+                      <th width=""><h5 style="margin:5px">说明</h5></th>
+                      <th width=""><h5 style="margin:5px">状态</h5></th>
+                      <th width=""><h5 style="margin:5px">同步时间</h5></th>
+                      <th width=""><h5 style="margin:5px">数据条数</h5></th>
+                      <th width=""><h5 style="margin:5px">同步条件</h5></th>
+                      <th width=""><h5 style="margin:5px">更多信息</h5></th>
                     </tr>
                     </thead>
                     <tbody>
-                      {% for tableinfo in tablelist %}
+                        {% for tableinfo in tablelist %}
                         <tr class="gradea">
-                          <td style="vertical-align: middle"><h5>{{sourcetablename[0]}}</h5></td>
-                          <td style="vertical-align: middle"><h5>{{targettablename[0]}}</h5></td>
-                          <td style="vertical-align: middle"><h5>{{tablecode[0]}}</h5></td>
-                          <td style="vertical-align: middle;text-align:center;"><h4 style="margin:0px"><i class="icon-ok" style="color:green"></i></h4>
-                              {{syncstats[0]}}</td>
-                          <td style="vertical-align: middle"><h5>{{synctime[0]}}</h5></td>
-                          <td style="vertical-align: middle"><h5 style="text-align: right; width: 80%;">{{syncappend[0]}}</h5></td>
-                          <td style="vertical-align: middle">
-                         <a title="" id="example" data-content="{{synccondition[0]}}" data-placement="left" data-toggle="popover"  href="javascript:" 	data-original-title="数据同步的时间条件">
-                         <i class="icon-search"></i>同步条件</a>
-                            &nbsp;|&nbsp;
-                          <a title="" id="example" data-content="被以下主题引用：<hr  style='margin:0px'> {{topicnamelist[0]}}" data-placement="left" data-toggle="popover" href="javascript:" data-original-title="第一条和最后一条数据ID">
-                          <i class="icon-copy"></i>引用</a>
-                            </td>
+                          <td style="vertical-align: middle"><h5>{{tableinfo.sourcetablename}}</h5></td>
+                          <td style="vertical-align: middle"><h5>{{tableinfo.targettablename}}</h5></td>
+                          <td style="vertical-align: middle"><h5>{{tableinfo.tablename}}</h5></td>
+                          <td style="vertical-align: middle"><h5>{{tableinfo.remark}}</h5></td>
+                          <td style="vertical-align: middle;text-align:center;">
+
+
+                              {% if tableinfo.syncstats.title == ''%}
+                              <a href="javascript">
+                                  {% else %}
+                              <a href="#pop-syncstats-{{tableinfo.tableid}}" data-toggle="modal">
+                             {% endif %}
+                          <h4 style="margin:0px">
+                              	{% if tableinfo.syncstats.stats=='ING' %}
+                                <i class="icon-refresh" style="color:RoyalBlue;"></i>
+                          </h4>
+                                正在执行
+                                {% elif tableinfo.syncstats.stats=='WAR' %}
+                                <i class="icon-warning-sign" style="color:Goldenrod"></i>
+                          </h4>
+                                数据告警
+                                {% elif tableinfo.syncstats.stats=='SUC' %}
+                                <i class="icon-ok-circle" style="color:green"></i>
+                          </h4>
+                                执行成功
+                                {% elif tableinfo.syncstats.stats=='FAI' %}
+                                <i class="icon-remove-circle" style="color:Firebrick"></i>
+                          </h4>
+                                执行失败
+                                {% elif tableinfo.syncstats.stats=='STOP' %}
+                                <i class="icon-ban-circle" style="color:DimGray"></i>
+                          </h4>
+                                未执行
+                                {% endif %}
+                              </a>
+
+                              <div id="pop-syncstats-{{tableinfo.tableid}}" class="modal hide" style="display: none;" aria-hidden="true">
+                                <div class="modal-header">
+                                <button data-dismiss="modal" class="close" type="button">×</button>
+                                <h3>{{tableinfo.syncstats.title}}</h3>
+                                </div>
+                                <div class="modal-body">
+                                <p>{{tableinfo.syncstats.memo}}</p>
+                                </div>
+                              </div>
+
+                          </td>
+
+
+                          <td style="vertical-align: middle;text-align:center"><h5>{{tableinfo.synctime}}</h5></td>
+                          <td style="vertical-align: middle;text-align:right"><h5 style="text-align: right; width: 80%;">{{tableinfo.syncappend}}</h5></td>
+                          <td style="vertical-align: middle;text-align:center"><h5 style="text-align: center;">{{tableinfo.synccondition}}</h5></td>
+                          <td style="vertical-align: middle;text-align:center">
+                              <a href="#pop-table-{{tableinfo.tableid}}" data-toggle="modal"><i class="icon-search"></i>主题引用</a>
+
+                              <div id="pop-table-{{tableinfo.tableid}}" class="modal hide" style="display: none;" aria-hidden="true">
+                                <div class="modal-header">
+                                    <button data-dismiss="modal" class="close" type="button">×</button>
+                                    <h3>{{tableinfo.targettablename}} 被以下主题引用</h3>
+                                </div>
+
+					            <div class="modal-body" style="display: inline-block;"></div>
+                                <div class="modal-body" style="display: inline-block;">
+                                    {% for dr in tableinfo.datarelationlist%}
+                                    <p>{{dr.behindtablecode}} : {{dr.behindtablename}}</p>
+                                    {% endfor %}
+                                </div>
+					            <div class="modal-body" style="display: inline-block;"></div>
+                             </div>
+
+
+                          </td>
                         </tr>
                         {% endfor %}
                     </tbody>

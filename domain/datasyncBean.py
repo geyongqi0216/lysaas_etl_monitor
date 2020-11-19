@@ -1,5 +1,19 @@
+class Table:
+    def __init__(self, sourcetablename,tableid,targettablename,tablename,remark,syncstats,synctime,syncappend,synccondition,datarelationlist):
+        self.sourcetablename = sourcetablename
+        self.tableid = tableid
+        self.targettablename = targettablename
+        self.tablename = tablename
+        self.remark = remark
+        self.syncstats = syncstats
+        self.synctime = synctime
+        self.syncappend = syncappend
+        self.synccondition = synccondition
+        self.datarelationlist = datarelationlist
+
+
 class Topic:
-    def __init__(self, topicname, topictable, topictime, dataget, datahandle, datavalidate, datawrit, datarelationlist):
+    def __init__(self, topicname, topictable, topictime, dataget, datahandle, datavalidate, datawrit, datarelationlist,dashboardlist):
         self.topicname = topicname
         self.topictable = topictable
         self.topictime = topictime
@@ -8,6 +22,9 @@ class Topic:
         self.datavalidate = datavalidate
         self.datawrit = datawrit
         self.datarelationlist = datarelationlist
+        self.dashboardlist = dashboardlist
+
+
 
 
 class Stepstats:
