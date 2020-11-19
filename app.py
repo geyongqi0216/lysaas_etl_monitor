@@ -1,6 +1,7 @@
 import os
+from flask import Flask, render_template, request, redirect, session
 from service.filterTemplateService import login_filter
-from service.pandectService import *
+from service.pandectService import pandect_topic, pandect_table
 from service.userManageService import get_login, get_update
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
