@@ -2,7 +2,6 @@ import datetime
 from flask import session, request, url_for
 from werkzeug.utils import redirect
 
-
 def login_filter():
     isallow = False
     ue = session.get("user.effective")

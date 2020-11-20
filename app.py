@@ -1,31 +1,16 @@
 import os
-from flask import Flask, render_template, request, redirect, session
-from service.filterTemplateService import login_filter
+from flask import Flask, render_template, redirect, session
 from service.pandectService import pandect_topic, pandect_table
 from service.userManageService import get_login, get_update
-from service.appcheckService import add_check, select_check, update_check
+from service.appcheckService import datasyncAddAppCheckEdit, datasyncGetAppCheckList
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 
 
 @app.route("/")
 def root():
-    return redirect('/etlmonitor/check')
-
-
-@app.route("/etlmonitor/check")
-def check():
-    return render_template('datasync-appcheck.html')
-
-
-@app.route("/etlmonitor/add_check", methods=['GET', 'POST'])
-def add_check():
-    return render_template('register.html')
-
-#
-# @app.route("/")
-# def root():
-#     return redirect('/etlmonitor/index')
+    return redirect('/etlmonitor/index')
 
 
 @app.route("/etlmonitor")
@@ -33,15 +18,20 @@ def default():
     return redirect('/etlmonitor/index')
 
 
+@app.route("/etlmonitor/index")
+def index():
+    # return render_template('myindex.html')
+    return redirect('/etlmonitor/datasynctopic')
+
+
 @app.route("/etlmonitor/login")
 def login():
     return render_template('login.html')
 
 
-@app.route("/etlmonitor/logout")
-def logout():
-    session.clear()
-    return render_template('login.html')
+@app.route("/etlmonitor/do_login", methods=['GET', 'POST'])
+def do_login():
+    return get_login()
 
 
 @app.route("/etlmonitor/newpwd", methods=['GET', 'POST'])
@@ -49,20 +39,10 @@ def newpwd():
     return get_update()
 
 
-@app.route("/etlmonitor/do_login", methods=['GET', 'POST'])
-def do_login():
-    if request.method == "POST":
-        username = request.form.get('userCode')  # 从表单中获取数据
-        password = request.form.get('userPwd')
-        print(username)
-        print(password)
-    return get_login()
-
-
-@app.route("/etlmonitor/index")
-def index():
-    # return render_template('myindex.html')
-    return render_template('datasync-topic.html', topiclist=pandect_topic())
+@app.route("/etlmonitor/logout")
+def logout():
+    session.clear()
+    return render_template('login.html')
 
 
 @app.route("/etlmonitor/datasynctopic")
@@ -75,6 +55,16 @@ def datasync_table():
     return render_template('datasync-table.html', tablelist=pandect_table())
 
 
+@app.route("/etlmonitor/datasyncappcheck")
+def datasync_appcheck():
+    return render_template('datasync-appcheck.html', appchecklist=datasyncGetAppCheckList())
+
+
+@app.route("/etlmonitor/datasyncappcheckeedit", methods=['GET', 'POST'])
+def datasync_appcheckedit():
+    return datasyncAddAppCheckEdit()
+
+
 # @app.before_request
 # def do_filter():
 #     return login_filter()
@@ -83,4 +73,4 @@ def datasync_table():
 # 添加过滤器，未登陆状态或登陆超时自动进入登陆页面
 # app.add_template_filter(login_filter, 'login_filter')
 if __name__ == "__main__":
-    app.run('0.0.0.0', '8485')
+    app.run('0.0.0.0', '8000')
