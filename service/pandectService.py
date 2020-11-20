@@ -24,6 +24,7 @@ def get_front_state(id,level):
     flag_success = 0
     flag_stop = 0
     flag_fal = 0
+    flag_ing = 0
     stats = ''
     title = ''
     memo = ''
@@ -35,16 +36,18 @@ def get_front_state(id,level):
             flag_fal = flag_fal + 1
         elif datum[2] == 'STOP':
             flag_stop = flag_stop + 1
+        elif datum[2] =='ING':
+            flag_ing == flag_ing + 1
     if flag_fal != 0:
         stats = 'FAI'
-    if flag_success != 0 and flag_stop != 0 and flag_fal == 0:
+    if flag_ing != 0  and flag_fal == 0:
         stats = 'ING'
-    if flag_stop == 0 and flag_fal == 0 and flag_success != 0:
+    if flag_stop == 0 and flag_fal == 0 and flag_success != 0 and flag_ing ==0:
         stats = 'SUC'
-    if flag_stop != 0 and flag_fal == 0 and flag_success ==0:
+    if flag_stop != 0 and flag_fal == 0 and flag_success ==0 and flag_ing ==0:
         stats = 'STOP'
     # 默认没有配置relation表的话节点默认成功
-    if flag_success + flag_fal + flag_stop ==0:
+    if flag_success + flag_fal + flag_stop + flag_ing ==0:
         stats = 'SUC'
 
     if stats == 'FAI':
@@ -178,7 +181,7 @@ def pandect_table():
         synctime = row[6]
         syncappend = row[7]
         synccondition =  row[8]
-        syncstats = Stepstats(row[5],'提示','测试')
+        syncstats = Stepstats(row[5],'提示','暂无')
 
         data = get_connect().query("select t2.id,t2.table_code,t2.table_name from t_table_relation t1 "
                                    + "left join t_table_base t2 on t1.behind_table_id = t2.id and "
