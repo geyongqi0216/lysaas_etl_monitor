@@ -64,6 +64,8 @@ function addappcheckconfig(appckeckid) {
 	$('#appcheckconfigpop').attr("action","../manage/shopInfo");
 	$('#appcheckpop').removeAttr("hidden");
 	  $('#app_id').removeAttr("disabled")
+	  //恢复默认选择第一个
+	  $('#app_id option:first').prop('selected', 'selected');
 	  $('#appchecktitle').text("");
 	  $('#checkinfo').text("");
 	  $('#appid').val("");
@@ -71,6 +73,13 @@ function addappcheckconfig(appckeckid) {
 	  $('#check_logic').val("");
 	  $('#check_result').val("");
 	  $('#check_sql').val("");
+
+	  //初始化是否使用状态
+    $('#check_used_lab_1').click();
+    $('#check_used_rad_0').click();
+    $('#check_used_lab_0').click();
+    $('#check_used_rad_1').click();
+
 	if(appckeckid==""){
 		//$('#appckeckid').attr("hidden","hidden");//此项目前不关闭,显示在外
 		$('#appchecktitle').text("新建主题检查规则");
@@ -89,12 +98,6 @@ function addappcheckconfig(appckeckid) {
     var usedradio=$('#check_used_rad_'+$('#check_used-'+$('#appckeck_id').val()).val());
     usedlabel.click();
     usedradio.click();
-	}
-}
 
-function resetcheckused(){
-    $('#check_used_lab_1').click();
-    $('#check_used_rad_0').click();
-    $('#check_used_lab_0').click();
-    $('#check_used_rad_1').click();
+	}
 }
