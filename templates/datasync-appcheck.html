@@ -36,7 +36,8 @@
 								<!-- 主题名称 -->
 									<input id="app_id-{{ appcheck.id }}" hidden="hidden" value="{{ appcheck.app_id }}" >
 									<td id="app_name-{{ appcheck.id }}" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;border-left: #000 solid 1px;" rowspan="{{ appcheck.checkdetaillist | length }}" ><h6>{{ appcheck.app_name }}</h6></td>
-								{% for  checkdetail in checkdetaillist%}
+								{% for checkdetail in appcheck.checkdetaillist %}
+                                    {% if ( loop.index0 + 1 ) < appchecklist | length %}
 									<!-- 检查项目 -->
 									<td id="check_object-{{ appcheck.id }}" style="text-align: center;vertical-align: middle;">{{ checkdetail.check_object }}</td>
 								<!-- 是否启用 -->
@@ -56,9 +57,33 @@
 									<td id="appcheckoperation-{{ appcheck.id }}" style="text-align: center;vertical-align: middle;border-right: #000 solid 1px;">
 										<a href="#appcheckpop" onclick="javascript:addappcheckconfig('{{ appcheck.id }}')" data-toggle="modal" class="btn btn-success"><i class="icon-edit"></i>编辑规则</a>
 									</td>
-									{% if ( loop.index0 +1 ) != appchecklist | length %}
 									</tr>
 									<tr class="gradeA even">
+                                    {% endif %}
+
+									{% if ( loop.index0 + 1 ) == appchecklist | length %}
+
+
+									<!-- 检查项目 -->
+									<td id="check_object-{{ appcheck.id }}" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;">{{ checkdetail.check_object }}</td>
+								<!-- 是否启用 -->
+									<td id="check_used_ioc-{{ appcheck.id }}" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;">
+										<input id="check_used-{{ appcheck.id }}" hidden="hidden" value="{{ checkdetail.check_used }}" >
+										{% if checkdetail.check_used %}
+											<h3><i class="icon-ok" style="color:green"></i></h3></td>
+										{% else %}
+											<h3><i class="icon-remove" style="color:Firebrick"></i></h3>
+										{% endif %}
+									</td>
+								<!-- 结果判断 -->
+									<td id="check_logic-{{ appcheck.id }}" style="text-align: left;vertical-align: middle;border-bottom: #000 solid 1px;">{{ checkdetail.check_logic }}</td>
+								<!-- 执行SQL -->
+									<td id="check_sql-{{ appcheck.id }}" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;">{{ checkdetail.check_sql }}</td>
+								<!-- 编辑操作 -->
+									<td id="appcheckoperation-{{ appcheck.id }}" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;border-right: #000 solid 1px;">
+										<a href="#appcheckpop" onclick="javascript:addappcheckconfig('{{ appcheck.id }}')" data-toggle="modal" class="btn btn-success"><i class="icon-edit"></i>编辑规则</a>
+									</td>
+									</tr>
 									{% endif %}
 								{% endfor %}
 							</tr>

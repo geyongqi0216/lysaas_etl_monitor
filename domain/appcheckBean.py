@@ -16,9 +16,9 @@ class appCheckEntity():
 
 
 class appCheckBean():
-    def __init__(self, id, app_id, checkdetaillist):
-        self.id = id
+    def __init__(self, app_id, app_name, checkdetaillist):
         self.app_id = app_id
+        self.app_name = app_name
         self.checkdetaillist = checkdetaillist
 
 
