@@ -31,24 +31,30 @@ def get_front_state(id,level):
     data = get_connect().query(get_app_row_sql(str(id), level))
     for datum in data:
         if datum[2] == 'SUC':
-            flag_success = flag_success + 1
+            flag_success  =  1
         elif datum[2] == 'FAI':
-            flag_fal = flag_fal + 1
+            flag_fal =  1
         elif datum[2] == 'STOP':
-            flag_stop = flag_stop + 1
+            flag_stop =  1
         elif datum[2] =='ING':
-            flag_ing == flag_ing + 1
-    if flag_fal != 0:
+            flag_ing =  1
+
+    if flag_fal == 1:
         stats = 'FAI'
-    if flag_ing != 0  and flag_fal == 0:
+    if flag_fal == 0 and flag_ing == 1:
         stats = 'ING'
-    if flag_stop == 0 and flag_fal == 0 and flag_success != 0 and flag_ing ==0:
-        stats = 'SUC'
-    if flag_stop != 0 and flag_fal == 0 and flag_success ==0 and flag_ing ==0:
+    if flag_fal == 0 and flag_ing == 0 and flag_stop == 1 and flag_success == 1:
+        stats = 'ING'
+    if flag_fal == 0 and flag_ing == 0 and flag_stop == 1 and flag_success == 0:
         stats = 'STOP'
-    # 默认没有配置relation表的话节点默认成功
-    if flag_success + flag_fal + flag_stop + flag_ing ==0:
+    if flag_fal == 0 and flag_ing == 0 and flag_stop == 0 and flag_success == 1:
         stats = 'SUC'
+    if flag_fal == 0 and flag_ing == 0 and flag_stop == 0 and flag_success == 0:
+        stats = 'SUC'
+
+    # 默认没有配置relation表的话节点默认成功
+    # if flag_success + flag_fal + flag_stop + flag_ing ==0:
+    #     stats = 'SUC'
 
     if stats == 'FAI':
         title = '以下任务执行异常'
