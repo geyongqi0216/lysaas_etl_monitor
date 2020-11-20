@@ -168,7 +168,7 @@
 			{% endif %}
 			</div>
 
-			<div class="span2" style="vertical-align: middle;text-align:center;margin-top: 20px;">
+			<div class="span2" style="vertical-align: middle;text-align:center;">
 
  				<!--
 			<a href="#pop-datarelation-{topicdata.tableid}}" data-toggle="modal">
@@ -191,26 +191,26 @@
  				<hr width="70%" style="margin:0px">
 					-->
 
-				{% if topicdata.dashboardlist =='' %}
-				未维护看板<br>
+				{% if topicdata.dashboardlist | length ==0 %}
+				<br><br>无被引用信息
 				<!--`````a href="javascript:">点此处维护</a-->
 				{% else %}
 					<div>
-					<h5>被以下看板引用</h5>
+					<h5 style="margin: 0;">被以下看板引用</h5>
  					<hr width="70%" style="margin:0px">
-					<div >
+					<div style="text-align: left;">
 						{% for topicd in topicdata.dashboardlist %}
-							{% if loop.index0<2 or ( topicdata.dashboardlist | length < 3 and loop.index0==2) %}
-								<p>{{loop.index0 +1}}.{{topicd.behindtablename}}</p>
+							{% if topicdata.dashboardlist | length <= 3 or ( topicdata.dashboardlist | length > 3 and loop.index0<2) %}
+								<p style="margin: 0;">{{loop.index0 +1}}.{{topicd.behindtablename}}</p>
 							{% endif %}
 						{% endfor %}
-						{% if topicdata.dashboardlist | length>2 %}
-							<a title="" id="example4" data-content="主题 {{topicdata.topicname}} 被以下看板引用
+						{% if topicdata.dashboardlist | length>3 %}
+							<a title="" id="example4" data-content="
 							{% for topicd in topicdata.dashboardlist %}
-								<br>{{loop.index0 +1}}.{{topicd.behindtablename}}
+								{{loop.index0 +1}}.{{topicd.behindtablename}}<br>
 							{% endfor %}"
-						   data-placement="left" data-toggle="popover" class="btn btn-success" href="javascript:"
-						   data-original-title="看板信息">更多看板信息</a>
+						   data-placement="left" data-toggle="popover"  href="javascript:"
+						   data-original-title="{{topicdata.topicname}}"><li class="icon-info-sign">更多引用信息</li></a>
 						{% endif %}
 					</div>
 				 </div>
