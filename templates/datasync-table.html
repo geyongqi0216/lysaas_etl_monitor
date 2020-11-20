@@ -38,33 +38,31 @@
                           <td style="vertical-align: middle"><h5>{{tableinfo.tablename}}</h5></td>
                           <td style="vertical-align: middle"><h5>{{tableinfo.remark}}</h5></td>
                           <td style="vertical-align: middle;text-align:center;">
-
-
                               {% if tableinfo.syncstats.title == ''%}
-                              <a href="javascript">
-                                  {% else %}
-                              <a href="#pop-syncstats-{{tableinfo.tableid}}" data-toggle="modal">
-                             {% endif %}
-                          <h4 style="margin:0px">
-                              	{% if tableinfo.syncstats.stats=='ING' %}
+                                <a href="javascript">
+                              {% else %}
+                                <a href="#pop-syncstats-{{tableinfo.tableid}}" data-toggle="modal">
+                              {% endif %}
+                              <h4 style="margin:0px">
+                                {% if tableinfo.syncstats.stats=='ING' %}
                                 <i class="icon-refresh" style="color:RoyalBlue;"></i>
-                          </h4>
+                                </h4>
                                 正在执行
                                 {% elif tableinfo.syncstats.stats=='WAR' %}
                                 <i class="icon-warning-sign" style="color:Goldenrod"></i>
-                          </h4>
+                                </h4>
                                 数据告警
                                 {% elif tableinfo.syncstats.stats=='SUC' %}
                                 <i class="icon-ok-circle" style="color:green"></i>
-                          </h4>
+                                </h4>
                                 执行成功
                                 {% elif tableinfo.syncstats.stats=='FAI' %}
                                 <i class="icon-remove-circle" style="color:Firebrick"></i>
-                          </h4>
+                                </h4>
                                 执行失败
                                 {% elif tableinfo.syncstats.stats=='STOP' %}
                                 <i class="icon-ban-circle" style="color:DimGray"></i>
-                          </h4>
+                                </h4>
                                 未执行
                                 {% endif %}
                               </a>
@@ -78,9 +76,7 @@
                                 <p>{{tableinfo.syncstats.memo}}</p>
                                 </div>
                               </div>
-
                           </td>
-
 
                           <td style="vertical-align: middle;text-align:center"><h5>{{tableinfo.synctime}}</h5></td>
                           <td style="vertical-align: middle;text-align:right"><h5 style="text-align: right; width: 90%;">{{tableinfo.syncappend}}</h5></td>
