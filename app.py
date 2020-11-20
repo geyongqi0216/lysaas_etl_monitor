@@ -3,13 +3,29 @@ from flask import Flask, render_template, request, redirect, session
 from service.filterTemplateService import login_filter
 from service.pandectService import pandect_topic, pandect_table
 from service.userManageService import get_login, get_update
+from service.appcheckService import add_check, select_check, update_check
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 
 
 @app.route("/")
 def root():
-    return redirect('/etlmonitor/index')
+    return redirect('/etlmonitor/check')
+
+
+@app.route("/etlmonitor/check")
+def check():
+    return render_template('datasync-appcheck.html')
+
+
+@app.route("/etlmonitor/add_check", methods=['GET', 'POST'])
+def add_check():
+    return render_template('register.html')
+
+#
+# @app.route("/")
+# def root():
+#     return redirect('/etlmonitor/index')
 
 
 @app.route("/etlmonitor")
@@ -59,12 +75,12 @@ def datasync_table():
     return render_template('datasync-table.html', tablelist=pandect_table())
 
 
-@app.before_request
-def do_filter():
-    return login_filter()
+# @app.before_request
+# def do_filter():
+#     return login_filter()
 
 
 # 添加过滤器，未登陆状态或登陆超时自动进入登陆页面
-app.add_template_filter(login_filter, 'login_filter')
+# app.add_template_filter(login_filter, 'login_filter')
 if __name__ == "__main__":
     app.run('0.0.0.0', '8485')
