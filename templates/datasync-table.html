@@ -22,12 +22,12 @@
                       <th width=""><h5 style="margin:2px">来源</h5></th>
                       <th width=""><h5 style="margin:2px">表库</h5></th>
                       <th width=""><h5 style="margin:2px">表名</h5></th>
-                      <th width=""><h5 style="margin:2px">说明</h5></th>
                       <th width=""><h5 style="margin:2px;width:40px;">状态</h5></th>
                       <th width=""><h5 style="margin:2px;width:55px;">同步时间</h5></th>
                       <th width=""><h5 style="margin:2px;width:80px;">数据条数</h5></th>
                       <th width=""><h5 style="margin:2px;">同步条件</h5></th>
                       <th width=""><h5 style="margin:2px;width:55px;">更多信息</h5></th>
+                      <th width=""><h5 style="margin:2px">说明</h5></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -36,7 +36,6 @@
                           <td style="vertical-align: middle"><h5>{{tableinfo.sourcetablename}}</h5></td>
                           <td style="vertical-align: middle"><h5>{{tableinfo.targettablename}}</h5></td>
                           <td style="vertical-align: middle"><h5>{{tableinfo.tablename}}</h5></td>
-                          <td style="vertical-align: middle"><h5>{{tableinfo.remark}}</h5></td>
                           <td style="vertical-align: middle;text-align:center;">
                               {% if tableinfo.syncstats.title == ''%}
                                 <a href="javascript">
@@ -98,9 +97,9 @@
                                 </div>
 					            <div class="modal-body" style="display: inline-block;"></div>
                              </div>
-
-
                           </td>
+
+                          <td style="vertical-align: middle"><h5>{{tableinfo.remark}}</h5></td>
                         </tr>
                         {% endfor %}
                     </tbody>
