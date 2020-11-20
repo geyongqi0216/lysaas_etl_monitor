@@ -1,0 +1,213 @@
+{% include "headerpart.html" %}
+<!-- 管理功能使用页面 预留 -->
+<div id="definemenu" hidden="hidden">monitor monitor-shop</div>
+<!-- main part start-->
+<div id="content">
+	<div id="content-header">
+		<div id="breadcrumb">
+			<a class="tip-bottom" ><i class="icon-home"></i>首页</a> <a>ETL监控 </a> <a class="current">APP检查设置</a>
+		</div>
+	</div>
+		<!-- codeing begin -->
+	<div class="container-fluid">
+		<!-- 主页面 -->
+		<div class="widget-box">
+			<!-- 主体信息 -->
+			<div class="widget-content tab-content">
+					<label class="control-label"><a href="#appcheckpop" onclick="javascript:addappcheckconfig('')" data-toggle="modal" class="btn btn-info"><li class="icon-plus"></li> 增加检查</a></label>
+						
+             			 
+					<!-- 详细信息 -->
+					<table id="appchecklisttable" class=" table table-bordered 	">
+						<thead>
+							<tr>
+								<th style="border-bottom: #000 solid 1px;" width="10%"><h6>主题名称</h6></th>
+								<th style="border-bottom: #000 solid 1px;" width="10%"><h6>检查项目</h6></th>
+								<th style="border-bottom: #000 solid 1px;" width="6%"><h6>是否启用</h6></th>
+								<th style="border-bottom: #000 solid 1px;" width="15%"><h6>逻辑说明</h6></th>
+								<th style="border-bottom: #000 solid 1px;" ><h6>执行SQL</h6></th>
+								<th style="border-bottom: #000 solid 1px;" width="8%"><h6>编辑操作</h6></th>
+							</tr>
+						</thead>
+						<tbody>
+								<tr class="gradeA even">
+								<!-- 主题名称 -->
+									<input id="app_id-678" hidden="hidden" value="2" >
+									<td id="app_name-678" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;border-left: #000 solid 1px;" rowspan="3" ><h6>订单主题</h6></td>
+
+									<!-- 检查项目 -->
+									<input id="appckeckid-678" hidden="hidden" value="678" >
+									<td id="check_object-678" style="text-align: center;vertical-align: middle;">检查订单金额</td>
+								<!-- 是否启用 -->
+									<td id="check_used_ioc-678" style="text-align: center;vertical-align: middle;">
+									<input id="check_used-678" hidden="hidden" value="0" >
+										<h3><i class="icon-remove" style="color:Firebrick"></i></h3></td>
+								<!-- 结果判断 -->
+									<td id="check_logic-678" style="text-align: left;vertical-align: middle;">检查订单总金额是否超过50W ，超过的订单不应被同步</td>
+								<!-- 执行SQL -->
+									<td id="check_sql-678" style="text-align: center;vertical-align: middle;">select * from order where amount<0 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1</td>
+								<!-- 编辑操作 -->		
+									<td id="appcheckoperation" style="text-align: center;vertical-align: middle;border-right: #000 solid 1px;">
+										<a href="#appcheckpop" onclick="javascript:addappcheckconfig('678')" data-toggle="modal" class="btn btn-success"><i class="icon-edit"></i>编辑规则</a>
+									</td>
+								</tr>
+								<tr class="gradeA even">
+								<!-- 检查项目 -->
+									<td id="" style="text-align: center;vertical-align: middle;">检查订单金额</td>
+								<!-- 是否启用 -->
+									<td id="" style="text-align: center;vertical-align: middle;">
+										<h3><i class="icon-ok" style="color:green"></i></h3></td>
+								<!-- 逻辑说明 -->
+									<td id="" style="text-align: left;vertical-align: middle;">检查订单总金额是否超过50W ，超过的订单不应被同步 </td>
+								<!-- 执行SQL -->
+									<td id="" style="text-align: center;vertical-align: middle;">select * from order where amount>50000</td>
+								<!-- 编辑操作 -->		
+									<td id="" style="text-align: center;vertical-align: middle;border-right: #000 solid 1px;"><a href="#shopAction" onclick="javascript:shopActionPopJs('closeShop',${shop.shopId})" data-toggle="modal" class="btn btn-success"><i class="icon-edit"></i>编辑检查</a></td>
+								</tr>
+								<tr class="gradeA even">
+								<!-- 检查项目 -->
+									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;">检查订单金额</td>
+								<!-- 是否启用 -->
+									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;">
+										<h3><i class="icon-ok" style="color:green"></i></h3></td>
+								<!-- 逻辑说明 -->
+									<td id="" style="text-align: left;vertical-align: middle;border-bottom: #000 solid 1px;">检查订单总金额是否超过50W ，超过的订单不应被同步 </td>
+								<!-- 执行SQL -->
+									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;">select * from order where amount>50000</td>
+								<!-- 编辑操作 -->		
+									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;border-right: #000 solid 1px;"><a href="#shopAction" onclick="javascript:shopActionPopJs('closeShop',${shop.shopId})" data-toggle="modal" class="btn btn-danger btn-mini">编辑规则</a></td>
+								</tr>
+
+
+								<tr class="gradeA even">
+								<!-- 主题名称 -->
+									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;border-left: #000 solid 1px;" rowspan="1"><h6>订单主题</h6></td>
+								<!-- 检查项目 -->
+									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;" >检查订单金额</td>
+								<!-- 是否启用 -->
+									<td id="" style="text-align: center;vertical-align: middle;;border-bottom: #000 solid 1px;" >
+										<h3><i class="icon-remove" style="color:Firebrick"></i></h3></td>
+								<!-- 逻辑说明 -->
+									<td id="" style="text-align: left;vertical-align: middle;border-bottom: #000 solid 1px;" >检查订单是否小于0 ，小于0的订单不应被同步 </td>
+								<!-- 执行SQL -->
+									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;" >select * from order where amount<0 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1</td>
+								<!-- 编辑操作 -->		
+									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;border-right: #000 solid 1px;" ><a href="#shopAction" onclick="javascript:shopActionPopJs('closeShop',${shop.shopId})" data-toggle="modal" class="btn btn-danger btn-mini">编辑规则</a></td>
+								</tr>
+								
+								
+								<tr class="gradeA even">
+								<!-- 主题名称 -->
+									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;border-left: #000 solid 1px;" rowspan="2" ><h6>订单主题</h6></td>
+								<!-- 检查项目 -->
+									<td id="" style="text-align: center;vertical-align: middle;" >检查订单金额</td>
+								<!-- 是否启用 -->
+									<td id="" style="text-align: center;vertical-align: middle;" >
+										<h3><i class="icon-remove" style="color:Firebrick"></i></h3></td>
+								<!-- 逻辑说明 -->
+									<td id="" style="text-align: left;vertical-align: middle;" >检查订单是否小于0 ，小于0的订单不应被同步 </td>
+								<!-- 执行SQL -->
+									<td id="" style="text-align: center;vertical-align: middle;" >select * from order where amount<0 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1</td>
+								<!-- 编辑操作 -->		
+									<td id="" style="text-align: center;vertical-align: middle;border-right: #000 solid 1px;" ><a href="#shopAction" onclick="javascript:shopActionPopJs('closeShop',${shop.shopId})" data-toggle="modal" class="btn btn-danger btn-mini">编辑规则</a></td>
+								</tr>
+								<tr class="gradeA even">
+								<!-- 检查项目 -->
+									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;">检查订单金额</td>
+								<!-- 是否启用 -->
+									<td id="" style="text-align: center;vertical-align: middle;;border-bottom: #000 solid 1px;" >
+										<h3><i class="icon-remove" style="color:Firebrick"></i></h3></td>
+								<!-- 逻辑说明 -->
+									<td id="" style="text-align: left;vertical-align: middle;border-bottom: #000 solid 1px;">检查订单总金额是否超过50W ，超过的订单不应被同步 </td>
+								<!-- 执行SQL -->
+									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;">select * from order where amount>50000</td>
+								<!-- 编辑操作 -->		
+									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;border-right: #000 solid 1px;"><a href="#shopAction" onclick="javascript:shopActionPopJs('closeShop',${shop.shopId})" data-toggle="modal" class="btn btn-danger btn-mini">编辑规则</a></td>
+								</tr>
+						</tbody>
+					</table>
+			</div>
+		</div>
+		<!-- 详细结束 -->
+	</div>
+<!-- 主页面 -->
+	<!-- codeing end -->
+</div>
+
+
+
+<!-- 二次确认框 -->
+<div id="shopAction" class="modal hide" style="display: none;" aria-hidden="true">
+  <div class="modal-header">
+    <button data-dismiss="modal" class="close" type="button">×</button>
+    <h3 id="shopActionTitle">标题信息</h3>
+  </div>
+  <div class="modal-body">
+    <p id="shopActionDetail" align="center">内容信息</p>
+  </div>
+  <div id="commitAndCancel" class="modal-footer"> <a id="shopActionCommit" class="btn btn-primary" href="www.baidu.com">确认</a> 
+  <a data-dismiss="modal" class="btn" href="#">取消</a> </div>
+</div>
+
+
+
+<!-- 详细信息框 -->
+<div id="appcheckpop" class="modal hide" style="display: none;" aria-hidden="true">
+  <div class="modal-header">
+    <button data-dismiss="modal" class="close" type="button">×</button>
+    <h3 id="appchecktitle" style="text-align: center;"></h3>
+  </div>
+      			<form id="appcheckForm" action="#" method="post" class="form-horizontal">
+					<div hidden="hidden">
+		                <input id="appckeck_id" value="" >
+						</div>
+					<div id="appcheckinfo"></div>
+						 <div class="control-group">
+			              <label class="control-label">选择主题app_id</label>
+			              <div class="controls" style="text-align-last: center;width: 0%;">
+			                <select id="app_id">
+			                  <option value="1">会员主题</option>
+			                  <option value="2">订单主题</option>
+			                  <option value="3">导购主题</option>
+			                </select>
+			              </div>
+			            </div>
+						 <div class="control-group">
+						  <label class="control-label"> 是否生效 </label>
+						  <div class="controls">
+								<label id="check_used_lab_1">
+								  <input type="radio" name="check_used" id="check_used_rad_1"  />
+							  <i class="icon-ok" style="color:green"></i>立即生效</label>
+							<label id="check_used_lab_0">
+							    <input type="radio" name="check_used"  id="check_used_rad_0"  />
+							  <i class="icon-remove" style="color:Firebrick"></i>手动打开</label>
+						  </div>
+						</div>
+				      <label class="control-label">检查项目check_object</label>
+		              <div class="controls">
+		              <input id="check_object" type="text" class="span11" style="width: 70%;resize: none"  placeholder="可以是列或者业务值等">
+		              </div>
+		              
+				      <label class="control-label">逻辑说明check_logic</label>
+		              <div class="controls">
+		                <textarea id="check_logic" name="shopInfoForm-notes" style="width: 70%; height: 120px;resize: none"  placeholder="简单阐述对检查对象的验证逻辑和算法"></textarea>
+		              </div>
+
+				      <label class="control-label">SQL语句check_sql</label>
+		              <div class="controls">
+		                <textarea  id="check_sql" name="shopInfoForm-notes" style="width: 70%; height: 230px;resize: none" placeholder="贴入已测试通过的 SQL代码"></textarea>
+		              </div>
+		              
+		            <div class="form-actions"  style="text-align-last:justify;text-align:justify;text-justify:distribute-all-lines;">
+		              <button type="submit" class="btn btn-success">确认</button>
+		              <a  data-dismiss="modal" class="btn btn-danger" href="#">取消</a>
+		            </div>
+		         </form>
+</div>
+
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/jquery.uniform.js"></script>
+<script src="../static/js/select2.min.js"></script>
+
+<!-- main part end-->
+{% include "footerpart.html" %}

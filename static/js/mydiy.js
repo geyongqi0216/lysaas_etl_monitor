@@ -83,14 +83,18 @@ function addappcheckconfig(appckeckid) {
 	  $('#check_object').val($('#check_object-'+appckeckid).text());
 	  $('#check_logic').val($('#check_logic-'+appckeckid).text());
 	  $('#check_sql').val($('#check_sql-'+appckeckid).text());
-	}
 
+	  //点击当前的是否使用状态
+    var usedlabel=$('#check_used_lab_'+$('#check_used-'+$('#appckeck_id').val()).val());
+    var usedradio=$('#check_used_rad_'+$('#check_used-'+$('#appckeck_id').val()).val());
+    usedlabel.click();
+    usedradio.click();
+	}
 }
 
-function  test() {
-    alert($('#check_used-'+$('#appckeck_id').val()).val());
-    var radio=$('#check_used_'+$('#check_used-'+$('#appckeck_id').val()).val());
-    alert(radio.val());
-    radio.click();
-
+function resetcheckused(){
+    $('#check_used_lab_1').click();
+    $('#check_used_rad_0').click();
+    $('#check_used_lab_0').click();
+    $('#check_used_rad_1').click();
 }
