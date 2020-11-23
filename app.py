@@ -1,8 +1,9 @@
 import os
 from flask import Flask, render_template, redirect, session
 from service.pandectService import pandect_topic, pandect_table
-from service.userManageService import get_login, get_update
-from service.appcheckService import datasyncAddAppCheckEdit, datasyncGetAppCheckList
+from service.appCheckService import getCheckInfo
+from service.userManageService import editUserPwd, doLogin
+from service.filterTemplateService import login_filter
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -31,12 +32,12 @@ def login():
 
 @app.route("/etlmonitor/do_login", methods=['GET', 'POST'])
 def do_login():
-    return get_login()
+    return doLogin()
 
 
 @app.route("/etlmonitor/newpwd", methods=['GET', 'POST'])
 def newpwd():
-    return get_update()
+    return editUserPwd()
 
 
 @app.route("/etlmonitor/logout")
@@ -57,12 +58,12 @@ def datasync_table():
 
 @app.route("/etlmonitor/datasyncappcheck")
 def datasync_appcheck():
-    return render_template('datasync-appcheck.html', appchecklist=datasyncGetAppCheckList())
+    return render_template('datasync-appcheck.html', appchecklist=getCheckInfo())
 
 
-@app.route("/etlmonitor/datasyncappcheckeedit", methods=['GET', 'POST'])
-def datasync_appcheckedit():
-    return datasyncAddAppCheckEdit()
+# @app.route("/etlmonitor/datasyncappcheckeedit", methods=['GET', 'POST'])
+# def datasync_appcheckedit():
+#     return datasyncAddAppCheckEdit()
 
 
 # @app.before_request
@@ -71,6 +72,6 @@ def datasync_appcheckedit():
 
 
 # 添加过滤器，未登陆状态或登陆超时自动进入登陆页面
-# app.add_template_filter(login_filter, 'login_filter')
+app.add_template_filter(login_filter, 'login_filter')
 if __name__ == "__main__":
     app.run('0.0.0.0', '8000')
