@@ -2,6 +2,7 @@ import datetime
 from flask import session, request, url_for
 from werkzeug.utils import redirect
 
+
 def login_filter():
     isallow = False
     ue = session.get("user.effective")
@@ -16,7 +17,7 @@ def login_filter():
         if allowlist is not None:
             if len(allowlist) > 0:
                 for page in allowlist:
-                    if len(pathsp)>2 and pathsp[2] == page:
+                    if len(pathsp) > 2 and pathsp[2] == page:
                         isallow = True
             else:
                 isallow = True

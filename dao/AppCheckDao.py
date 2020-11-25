@@ -26,7 +26,7 @@ def selCheckApp():
 def insCheckInfo(appcheckinsbean):
     conn = get_connect()
     sql = "insert into t_check (check_object, app_id, check_used, check_logic, check_result, check_sql) values " \
-          f"(\'{appcheckinsbean.check_object}\',\' {appcheckinsbean.app_id}\', \'{appcheckinsbean.check_used}\''" \
+          f"(\'{appcheckinsbean.check_object}\',\' {appcheckinsbean.app_id}\', \'{appcheckinsbean.check_used}\'" \
           f", \'{appcheckinsbean.check_logic}\', \'{appcheckinsbean.check_result}\', \'{appcheckinsbean.check_sql}\')"
     result = conn.execute(sql)
     return result

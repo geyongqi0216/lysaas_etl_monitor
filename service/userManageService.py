@@ -11,15 +11,15 @@ class ReturnInfoEnum:
         id_pwd_error = '用户名或密码错误'
 
     class Edit(Enum):
-        upd_seccess = '密码修改成功'
+        upd_success = '密码修改成功'
         oldpwd_error = '原始密码错误'
         oldpwd_newpwd_error = '两次密码不一致'
-        upd_error = '修改有误'
+        upd_error = '修改有误'  # TODO 未知异常：系统异常，请联系客服！
 
     class Add(Enum):
         code_exist_error = '用户名已存在'
         ins_seccess = '注册成功'
-        ins_error = '注册失败'
+        ins_error = '注册失败'  # TODO 未知异常：系统异常，请联系客服！
 
 
 # 用户登录
