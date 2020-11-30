@@ -1,69 +1,63 @@
-from flask import request, render_template
-from dao.AppCheckDao import selCheckByAppId, selCheckApp, insCheckInfo, updCheckById
-from domain.appCheckDomain import AppCheckBean, AppCheckEntity, AppCheckInsBean, AppCheckUpdBean, AppIdNameBean
 from enum import Enum
+from flask import request
+
+from dao.DBServer import get_connect
+from domain.appCheckDomain import AppCheckDetailBean, AppCheckBean
 
 
-class ReturnInfoEnum:
-    class Edit(Enum):
-        upd_error = '编辑失败'
-        upd_success = '编辑成功'
+def editAppCheck():
+    class ReturnInfo(Enum):
+        addSuc = "成功创建规则"
+        addFai = "规则创建失败"
+        editSuc = "成功更新规则"
+        editFai = "规则更新失败"
 
-    class Add(Enum):
-        ins_success = '添加成功'
-        ins_error = '添加失败'
-
-
-# 添加check信息
-def addCheckInfo():
-    # 从前端中获取数据
-    check_object = request.form.get('check_object')   # 获取主题名称
-    app_id = request.form.get('app_id')     # 获取主题id
-    check_used = request.form.get('check_used')     # 获取是否有效
-    check_logic = request.form.get('check_logic')   # 获取检查项目
-    check_result = request.form.get('check_result')     # 获取逻辑说明
-    check_sql = request.form.get('check_sql')   # 获取执行SQL
-    appcheckinsbean = AppCheckInsBean(check_object, app_id, check_used, check_logic, check_result, check_sql)
-    result = insCheckInfo(appcheckinsbean)
-    if result == 1:
-        return render_template('datasync-appcheck.html', errorInfo=ReturnInfoEnum.Add.ins_seccess.value)
-    return render_template('datasync-appcheck.html', errorInfo=ReturnInfoEnum.Add.ins_error.value)
-
-
-# 修改check信息
-def editCheckById():
-    # 从前端中获取数据
-    appcheackid = request.form.get('appcheackid')   # 获取检查项目id
-    check_object = request.form.get('check_object')  # 获取主题名称
-    app_id = request.form.get('app_id')     # 获取主题id
-    check_used = request.form.get('check_used')  # 获取是否有效
-    check_logic = request.form.get('check_logic')   # 获取检查项目
-    check_result = request.form.get('check_result')     # 获取逻辑说明
-    check_sql = request.form.get('check_sql')   # 获取执行SQL
-    appcheckupdbean = AppCheckUpdBean(appcheackid, check_object, app_id, check_used, check_logic, check_result, check_sql)
-    result = updCheckById(appcheckupdbean)
-    if result == 1:
-        return render_template('datasync-appcheck.html', errorInfo=ReturnInfoEnum.Edit.upd_seccess.value)
-    return render_template('datasync-appcheck.html', errorInfo=ReturnInfoEnum.Edit.upd_error.value)
+    app_check_id = request.form.get('appcheck_id')
+    app_id_r = request.form.get('app_id')
+    app_id = 0 if app_id_r is None else app_id_r
+    check_object = request.form.get('check_object')
+    check_used = request.form.get('check_used')
+    check_logic = request.form.get('check_logic')
+    check_result = request.form.get('check_result')
+    check_sql = request.form.get('check_sql')
+    # 判断是否为新增
+    if app_check_id == '0':
+        sql = "insert into t_check (app_id, check_object, check_used, check_logic, check_result, check_sql) values ( '" \
+              + app_id + "' , '" + str(check_object) + "' , " + check_used + " , '" + str(check_logic) \
+              + "' , '" + str(check_result) + "' , '" + str(check_sql) + "' ); "
+    else:
+        sql = "update t_check set check_object = '" + check_object + "', check_used = " + check_used + ", check_logic = '" + check_logic \
+              + "', check_result = '" + check_result + "', check_sql = '" + check_sql + "' where id =  " + app_check_id + " ;"
+    conn = get_connect()
+    result = conn.execute(sql)
+    if app_check_id != '0' and result is not None and result > 0:
+        return "<a href='datasyncappcheck' >"+ReturnInfo.editSuc.value+"</a>"
+    elif app_check_id != '0':
+        return "<a href='datasyncappcheck' >"+ReturnInfo.editFai.value+"</a>"
+    elif app_check_id == '0' and result is not None and result > 0:
+        return "<a href='datasyncappcheck' >"+ReturnInfo.addSuc.value+"</a>"
+    elif app_check_id == '0':
+        return "<a href='datasyncappcheck' >"+ReturnInfo.addFai.value+"</a>"
 
 
-# 查询所有check信息
-def getCheckInfo():
-    appchecklist = []
+def getAppCheckList():
+    app_check_list = []
+    conn = get_connect()
     # 查询所有主题信息
-    appCheckInfoList = selCheckApp()
+    sql = "select distinct c.app_id, t.table_name from t_check c left join t_table_base t on c.app_id =t.id"
+    check_app_list = conn.query(sql)
     # 循环所有主题信息
-    for appCheckInfo in appCheckInfoList:
-        # 根据主题信息查询t_check所有详情信息
-        appidnamebean = AppIdNameBean(appCheckInfo[0], appCheckInfo[1])
-        checklist = selCheckByAppId(appidnamebean)
-        appcheckdetaillist = []
-        # 循环此主题t_check详情信息
-        for check in checklist:
-            appcheckentity = AppCheckEntity(check[0], check[1], check[2], check[3], check[4], check[5], check[6], check[7])
-            appcheckdetaillist.append(appcheckentity)
+    for each_check_app in check_app_list:
+        # 根据主题信息查询t_app_check所有详情信息
+        sql = f"select c.id, c.check_object, c.app_id, t.table_name, c.check_used, c.check_logic, c.check_result, c.check_sql from t_check c left join t_table_base t on c.app_id =t.id " \
+              f" and t.table_lab = 'topic' where app_id = '"+str(each_check_app[0])+"'"
+        check_list = conn.query(sql)
+        app_check_detail_list = []
+        for each_check in check_list:
+            app_check_detail = AppCheckDetailBean(each_check[0], each_check[1], each_check[2], each_check[3], each_check[4], each_check[5], each_check[6], each_check[7])
+            app_check_detail_list.append(app_check_detail)
         # 将主题信息和相对的详情信息打包成对象
-        appcheck = AppCheckBean(appidnamebean.app_id, appidnamebean.app_name, appcheckdetaillist)
+        app_check = AppCheckBean(each_check_app[0], each_check_app[1], app_check_detail_list)
         # 传进最后appchecklist中
-        appchecklist.append(appcheck)
-    return appchecklist
+        app_check_list.append(app_check)
+    return app_check_list

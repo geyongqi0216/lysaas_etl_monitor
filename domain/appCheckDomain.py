@@ -4,7 +4,7 @@ class AppCheckEntity:
         self.check_object = check_object
         self.app_id = app_id
         self.app_name = app_name
-        self.check_used = check_used
+        self.check_used = ord(check_used)
         self.check_logic = check_logic
         self.check_result = check_result
         self.check_sql = check_sql
@@ -23,7 +23,7 @@ class AppCheckDetailBean:
         self.check_object = check_object
         self.app_id = app_id
         self.app_name = app_name
-        self.check_used = check_used
+        self.check_used = ord(check_used)
         self.check_logic = check_logic
         self.check_result = check_result
         self.check_sql = check_sql

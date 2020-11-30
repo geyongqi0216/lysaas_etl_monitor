@@ -1,7 +1,8 @@
 import os
 from flask import Flask, render_template, redirect, session
+
+from service.appCheckService import getAppCheckList, editAppCheck
 from service.pandectService import pandect_topic, pandect_table
-from service.appCheckService import getCheckInfo
 from service.userManageService import editUserPsw, doLogin
 from service.filterTemplateService import login_filter
 
@@ -58,12 +59,12 @@ def datasync_table():
 
 @app.route("/etlmonitor/datasyncappcheck")
 def datasync_appcheck():
-    return render_template('datasync-appcheck.html', appchecklist=getCheckInfo())
+    return render_template('datasync-appcheck.html', appchecklist=getAppCheckList())
 
 
-# @app.route("/etlmonitor/datasyncappcheckeedit", methods=['GET', 'POST'])
-# def datasync_appcheckedit():
-#     return datasyncAddAppCheckEdit()
+@app.route("/etlmonitor/datasyncappcheckeedit", methods=['GET', 'POST'])
+def datasync_appcheckedit():
+    return editAppCheck()
 
 
 # @app.before_request
