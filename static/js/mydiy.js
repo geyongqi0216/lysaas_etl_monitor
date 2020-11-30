@@ -21,7 +21,7 @@
 	var submenu=menuinfo.split('-')[0];
 	var dtlmenu=menuinfo.split('-')[1];
 	$('#'+submenu).addClass(' active open')
-	document.getElementById(submenu).getElementsByTagName('ul')[0].style='display: block';
+	document.getElementById(submenu).getElementsByTagName('ul')[0].style='display:block';
 	$('#'+dtlmenu).addClass('active');
 
 //获取当前url的查询参数
@@ -43,7 +43,7 @@ function passwordinfoPopJs() {
 	$('#passwordForm-repsd').val();
 }
 
-
+//设置页面时间空间
 setInterval(function () {
     var date = new Date();
     var h = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
@@ -60,11 +60,11 @@ if(returnInfo!=null&&$.trim(returnInfo))
 	 $('#returnInfoLink')[0].click();
 }
 
-function addappcheckconfig(appckeckid) {
+function addappcheckconfig(appid,appcheckid) {
     $('#appcheckForm').attr("action","./datasyncappcheckeedit");
     $('#appcheckpop').removeAttr("hidden");
     $('#appcheck_id').val("0");
-    $('#app_id').removeAttr("disabled")
+    $('#app_id').removeAttr("disabled");
     //恢复默认选择第一个
     $('#app_id option:first').prop('selected', 'selected');
     $('#appchecktitle').text("");
@@ -79,21 +79,22 @@ function addappcheckconfig(appckeckid) {
     $('#check_used_rad_0').click();
     $('#check_used_lab_0').click();
     $('#check_used_rad_1').click();
-    if(appckeckid==""){
+    if(appcheckid==""){
         //$('#appckeckid').attr("hidden","hidden");//此项目前不关闭,显示在外
         $('#appchecktitle').text("新建主题检查规则");
     }
     else{
-        $('#appchecktitle').text("【"+$('#app_name-'+appckeckid).text()+"】");
-        $('#appcheck_id').val(appckeckid);
-        $('#app_id').val($('#app_id-'+appckeckid).val());
+        $('#appchecktitle').text("【"+$('#app_name-'+appid).text()+"】");
+        $('#appcheck_id').val(appcheckid);
+        $('#app_id').val($('#app_id-'+appid).val());
         $('#app_id').attr("disabled","");
-        $('#check_object').val($('#check_object-'+appckeckid).text());
-        $('#check_logic').val($('#check_logic-'+appckeckid).text());
-        $('#check_sql').val($('#check_sql-'+appckeckid).text());
+        $('#check_object').val($('#check_object-'+appid+'-'+appcheckid).text());
+        $('#check_result').val($('#check_result-'+appid+'-'+appcheckid).text());
+        $('#check_logic').val($('#check_logic-'+appid+'-'+appcheckid).text());
+        $('#check_sql').val($('#check_sql-'+appid+'-'+appcheckid).text());
         //点击当前的是否使用状态
-        var usedlabel=$('#check_used_lab_'+$('#check_used-'+$('#appckeck_id').val()).val());
-        var usedradio=$('#check_used_rad_'+$('#check_used-'+$('#appckeck_id').val()).val());
+        var usedlabel=$('#check_used_lab_'+$('#check_used-'+appid+'-'+appcheckid).val());
+        var usedradio=$('#check_used_rad_'+$('#check_used-'+appid+'-'+appcheckid).val());
         usedlabel.click();
         usedradio.click();
     }
@@ -103,10 +104,8 @@ function addappcheckconfig(appckeckid) {
 function appcheckedit_check_used(){
     if( 'checked' == $('#check_used_lab_0 span').attr('class') ){
         $('#check_used').val('0');
-        alert("check_used : 0")
     }
     if( 'checked' == $('#check_used_lab_1 span').attr('class') ){
         $('#check_used').val('1');
-        alert("check_used : 1")
     }
 }

@@ -1,16 +1,31 @@
 
-class User:
-    def __init__(self, id, username, usercode, password, lastupdate, effective):
+class UserInfoEntity:
+    def __init__(self, id, user_name, user_code, password, lastupdate):
         self.id = id
-        self.username = username
-        self.usercode = usercode
+        self.user_name = user_name
+        self.user_code = user_code
         self.password = password
         self.lastupdate = lastupdate
-        self.effective = effective
 
 
+class UserLoginBean:
+    def __init__(self, user_code, password):
+        self.user_code = user_code
+        self.password = password
 
-    def to_string(self):
-        s = "{id:{}, username:{}, usercode: {}, password:{}, lastupdate:{}}".format(
-            self.id, self.username,  self.usercode, self.password, self.lastupdate)
-        return s
+
+class UserInfoBean:
+    def __init__(self, user_name, user_code, password, lastupdate):
+        self.user_name = user_name
+        self.user_code = user_code
+        self.password = password
+        self.lastupdate = lastupdate
+
+
+class PswUpdBean:
+    def __init__(self, user_id, old_password, new_password, new_password2, lastupdate):
+        self.user_id = user_id
+        self.old_password = old_password
+        self.new_password = new_password
+        self.new_password2 = new_password2
+        self.lastupdate = lastupdate

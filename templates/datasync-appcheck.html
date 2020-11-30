@@ -14,9 +14,9 @@
 		<div class="widget-box">
 			<!-- 主体信息 -->
 			<div class="widget-content tab-content">
-					<label class="control-label"><a href="#appcheckpop" onclick="javascript:addappcheckconfig('')" data-toggle="modal" class="btn btn-info"><li class="icon-plus"></li> 增加检查</a></label>
-						
-             			 
+					<label class="control-label"><a href="#appcheckpop" onclick="javascript:addappcheckconfig('','')" data-toggle="modal" class="btn btn-info"><li class="icon-plus"></li> 增加检查</a></label>
+
+
 					<!-- 详细信息 -->
 					<table id="appchecklisttable" class=" table table-bordered 	">
 						<thead>
@@ -25,6 +25,7 @@
 								<th style="border-bottom: #000 solid 1px;" width="10%"><h6>检查项目</h6></th>
 								<th style="border-bottom: #000 solid 1px;" width="6%"><h6>是否启用</h6></th>
 								<th style="border-bottom: #000 solid 1px;" width="15%"><h6>逻辑说明</h6></th>
+								<th style="border-bottom: #000 solid 1px;" width="15%" hidden="hidden"><h6>结果含义</h6></th>
 								<th style="border-bottom: #000 solid 1px;" ><h6>执行SQL</h6></th>
 								<th style="border-bottom: #000 solid 1px;" width="8%"><h6>编辑操作</h6></th>
 							</tr>
@@ -34,14 +35,14 @@
 						{% for appcheck in appchecklist %}
 							<tr class="gradeA even">
 								<!-- 主题名称 -->
-									<input id="app_id-{{ appcheck.id }}" hidden="hidden" value="{{ appcheck.app_id }}" >
-									<td id="app_name-{{ appcheck.id }}" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;border-left: #000 solid 1px;" rowspan="{{ appcheck.checkdetaillist | length }}" ><h6>{{ appcheck.app_name }}</h6></td>
-								{% for  checkdetail in checkdetaillist%}
+									<input id="app_id-{{ appcheck.app_id }}" hidden="hidden" value="{{ appcheck.app_id }}" >
+									<td id="app_name-{{ appcheck.app_id }}" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;border-left: #000 solid 1px;" rowspan="{{ appcheck.checkdetaillist | length }}" ><h6>{{ appcheck.app_name }}</h6></td>
+								{% for checkdetail in appcheck.checkdetaillist %}
 									<!-- 检查项目 -->
-									<td id="check_object-{{ appcheck.id }}" style="text-align: center;vertical-align: middle;">{{ checkdetail.check_object }}</td>
+									<td id="check_object-{{ appcheck.app_id }}-{{ checkdetail.id }}" style="text-align: center;vertical-align: middle;{%if(loop.index0+1)==appcheck.checkdetaillist|length%}border-bottom:#000 solid 1px;{%endif%}">{{ checkdetail.check_object }}</td>
 								<!-- 是否启用 -->
-									<td id="check_used_ioc-{{ appcheck.id }}" style="text-align: center;vertical-align: middle;">
-										<input id="check_used-{{ appcheck.id }}" hidden="hidden" value="{{ checkdetail.check_used }}" >
+									<td id="check_used_ioc-{{ appcheck.app_id }}-{{ checkdetail.id }}" style="text-align: center;vertical-align: middle;{%if(loop.index0+1)==appcheck.checkdetaillist|length%}border-bottom:#000 solid 1px;{%endif%}">
+										<input id="check_used-{{ appcheck.app_id }}-{{ checkdetail.id }}" hidden="hidden" value="{{ checkdetail.check_used }}" >
 										{% if checkdetail.check_used %}
 											<h3><i class="icon-ok" style="color:green"></i></h3></td>
 										{% else %}
@@ -49,19 +50,20 @@
 										{% endif %}
 									</td>
 								<!-- 结果判断 -->
-									<td id="check_logic-{{ appcheck.id }}" style="text-align: left;vertical-align: middle;">{{ checkdetail.check_logic }}</td>
+									<td id="check_logic-{{ appcheck.app_id }}-{{ checkdetail.id }}" style="text-align: left;vertical-align: middle;{%if(loop.index0+1)==appcheck.checkdetaillist|length%}border-bottom:#000 solid 1px;{%endif%}">{{ checkdetail.check_logic }}</td>
+								<!-- 结果含义 -->
+									<td hidden="hidden" id="check_result-{{ appcheck.app_id }}-{{ checkdetail.id }}" style="text-align: center;vertical-align: middle;{%if(loop.index0+1)==appcheck.checkdetaillist|length%}border-bottom:#000 solid 1px;{%endif%}">{{ checkdetail.check_result }}</td>
 								<!-- 执行SQL -->
-									<td id="check_sql-{{ appcheck.id }}" style="text-align: center;vertical-align: middle;">{{ checkdetail.check_sql }}</td>
+									<td id="check_sql-{{ appcheck.app_id }}-{{ checkdetail.id }}" style="text-align: center;vertical-align: middle;{%if(loop.index0+1)==appcheck.checkdetaillist|length%}border-bottom:#000 solid 1px;{%endif%}">{{ checkdetail.check_sql }}</td>
 								<!-- 编辑操作 -->
-									<td id="appcheckoperation-{{ appcheck.id }}" style="text-align: center;vertical-align: middle;border-right: #000 solid 1px;">
-										<a href="#appcheckpop" onclick="javascript:addappcheckconfig('{{ appcheck.id }}')" data-toggle="modal" class="btn btn-success"><i class="icon-edit"></i>编辑规则</a>
+									<td id="appcheckoperation-{{ appcheck.app_id }}-{{ checkdetail.id }}" style="text-align: center;vertical-align: middle;border-right: #000 solid 1px;{%if(loop.index0+1)==appcheck.checkdetaillist|length%}border-bottom:#000 solid 1px;{%endif%}">
+										<a href="#appcheckpop" onclick="javascript:addappcheckconfig('{{ appcheck.app_id }}','{{ checkdetail.id }}')" data-toggle="modal" class="btn btn-success"><i class="icon-edit"></i>编辑规则</a>
 									</td>
-									{% if ( loop.index0 +1 ) != appchecklist | length %}
-									</tr>
-									<tr class="gradeA even">
-									{% endif %}
-								{% endfor %}
 							</tr>
+							{% if(loop.index0+1) < appcheck.checkdetaillist | length %}
+							<tr class="gradeA even">
+							{%endif%}
+								{% endfor %}
 						{% endfor %}
 
 <!--以下为demo，用于比较效果是否正确，请勿删除-->
@@ -76,11 +78,11 @@
 									<td id="check_used_ioc-678" style="text-align: center;vertical-align: middle;">
 									<input id="check_used-678" hidden="hidden" value="0" >
 										<h3><i class="icon-remove" style="color:Firebrick"></i></h3></td>
-								<!-- 结果判断 -->
-									<td id="check_logic-678" style="text-align: left;vertical-align: middle;">检查订单总金额是否超过50W ，超过的订单不应被同步</td>
+								<!-- 逻辑说明 -->
+									<td  id="check_logic-678" style="text-align: left;vertical-align: middle;">检查订单总金额是否超过50W ，超过的订单不应被同步</td>
 								<!-- 执行SQL -->
 									<td id="check_sql-678" style="text-align: center;vertical-align: middle;">select * from order where amount<0 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1</td>
-								<!-- 编辑操作 -->		
+								<!-- 编辑操作 -->
 									<td id="appcheckoperation" style="text-align: center;vertical-align: middle;border-right: #000 solid 1px;">
 										<a href="#appcheckpop" onclick="javascript:addappcheckconfig('678')" data-toggle="modal" class="btn btn-success"><i class="icon-edit"></i>编辑规则</a>
 									</td>
@@ -95,7 +97,7 @@
 									<td id="" style="text-align: left;vertical-align: middle;">检查订单总金额是否超过50W ，超过的订单不应被同步 </td>
 								<!-- 执行SQL -->
 									<td id="" style="text-align: center;vertical-align: middle;">select * from order where amount>50000</td>
-								<!-- 编辑操作 -->		
+								<!-- 编辑操作 -->
 									<td id="" style="text-align: center;vertical-align: middle;border-right: #000 solid 1px;"><a href="#shopAction" onclick="javascript:shopActionPopJs('closeShop',${shop.shopId})" data-toggle="modal" class="btn btn-success"><i class="icon-edit"></i>编辑检查</a></td>
 								</tr>
 								<tr class="gradeA even">
@@ -108,7 +110,7 @@
 									<td id="" style="text-align: left;vertical-align: middle;border-bottom: #000 solid 1px;">检查订单总金额是否超过50W ，超过的订单不应被同步 </td>
 								<!-- 执行SQL -->
 									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;">select * from order where amount>50000</td>
-								<!-- 编辑操作 -->		
+								<!-- 编辑操作 -->
 									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;border-right: #000 solid 1px;"><a href="#shopAction" onclick="javascript:shopActionPopJs('closeShop',${shop.shopId})" data-toggle="modal" class="btn btn-danger btn-mini">编辑规则</a></td>
 								</tr>
 
@@ -125,11 +127,11 @@
 									<td id="" style="text-align: left;vertical-align: middle;border-bottom: #000 solid 1px;" >检查订单是否小于0 ，小于0的订单不应被同步 </td>
 								<!-- 执行SQL -->
 									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;" >select * from order where amount<0 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1</td>
-								<!-- 编辑操作 -->		
+								<!-- 编辑操作 -->
 									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;border-right: #000 solid 1px;" ><a href="#shopAction" onclick="javascript:shopActionPopJs('closeShop',${shop.shopId})" data-toggle="modal" class="btn btn-danger btn-mini">编辑规则</a></td>
 								</tr>
-								
-								
+
+
 								<tr class="gradeA even">
 								<!-- 主题名称 -->
 									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;border-left: #000 solid 1px;" rowspan="2" ><h6>订单主题</h6></td>
@@ -142,7 +144,7 @@
 									<td id="" style="text-align: left;vertical-align: middle;" >检查订单是否小于0 ，小于0的订单不应被同步 </td>
 								<!-- 执行SQL -->
 									<td id="" style="text-align: center;vertical-align: middle;" >select * from order where amount<0 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1 and 1=1</td>
-								<!-- 编辑操作 -->		
+								<!-- 编辑操作 -->
 									<td id="" style="text-align: center;vertical-align: middle;border-right: #000 solid 1px;" ><a href="#shopAction" onclick="javascript:shopActionPopJs('closeShop',${shop.shopId})" data-toggle="modal" class="btn btn-danger btn-mini">编辑规则</a></td>
 								</tr>
 								<tr class="gradeA even">
@@ -155,7 +157,7 @@
 									<td id="" style="text-align: left;vertical-align: middle;border-bottom: #000 solid 1px;">检查订单总金额是否超过50W ，超过的订单不应被同步 </td>
 								<!-- 执行SQL -->
 									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;">select * from order where amount>50000</td>
-								<!-- 编辑操作 -->		
+								<!-- 编辑操作 -->
 									<td id="" style="text-align: center;vertical-align: middle;border-bottom: #000 solid 1px;border-right: #000 solid 1px;"><a href="#shopAction" onclick="javascript:shopActionPopJs('closeShop',${shop.shopId})" data-toggle="modal" class="btn btn-danger btn-mini">编辑规则</a></td>
 								</tr>
 						</tbody>
@@ -197,7 +199,7 @@
 						</div>
 					<div id="appidinfo"></div>
 						 <div class="control-group">
-			              <label class="control-label">选择主题app_id</label>
+			              <label class="control-label">选择主题</label>
 			              <div class="controls" style="text-align-last: center;width: 0%;">
 			                <select id="app_id" name="app_id">
 			                  <option value="1">会员主题</option>
@@ -219,21 +221,27 @@
 						  </div>
 
 						</div>
-				      <label class="control-label">检查项目check_object</label>
+				      <label class="control-label">检查项目</label>
 		              <div class="controls">
 		              <input id="check_object" name="check_object" type="text" class="span11" style="width: 70%;resize: none"  placeholder="可以是列或者业务值等">
 		              </div>
-		              
-				      <label class="control-label">逻辑说明check_logic</label>
+
+				      <label class="control-label">逻辑说明</label>
 		              <div class="controls">
 		                <textarea id="check_logic" name="check_logic" style="width: 70%; height: 120px;resize: none"  placeholder="简单阐述对检查对象的验证逻辑和算法"></textarea>
 		              </div>
 
-				      <label class="control-label">SQL语句check_sql</label>
+					  <div hidden="hidden">
+				      <label class="control-label">结果含义</label>
+		              <div class="controls">
+		                 <textarea  id="check_result"  name="check_result"  style="width: 70%; height: 50px;resize: none" placeholder="对返回结果的判断进行说明"></textarea>
+		             </div>
+					  </div>
+				      <label class="control-label">SQL语句</label>
 		              <div class="controls">
 		                <textarea  id="check_sql"  name="check_sql"  style="width: 70%; height: 230px;resize: none" placeholder="贴入已测试通过的 SQL代码"></textarea>
 		              </div>
-		              
+
 		            <div class="form-actions"  style="text-align-last:justify;text-align:justify;text-justify:distribute-all-lines;">
 		              <button type="submit" class="btn btn-success" onclick="javascript:appcheckedit_check_used()">确认</button>
 		              <a  data-dismiss="modal" class="btn btn-danger" href="#">取消</a>
