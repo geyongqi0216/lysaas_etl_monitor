@@ -67,12 +67,3 @@ def getCheckInfo():
         # 传进最后appchecklist中
         appchecklist.append(appcheck)
     return appchecklist
-
-
-if __name__ == '__main__':
-    appchecklist = getCheckInfo()
-    print(appchecklist)
-    for i in appchecklist:
-        print(i.app_name, i.app_id)
-        for each in i.checkdetaillist:
-            print(each.id, each.check_object, each.app_id, each.app_name, each.check_used, each.check_logic, each.check_result, each.check_sql)
