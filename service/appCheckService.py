@@ -61,3 +61,14 @@ def getAppCheckList():
         # 传进最后appchecklist中
         app_check_list.append(app_check)
     return app_check_list
+
+
+
+
+def getTopicList():
+    app_check_list = []
+    conn = get_connect()
+    # 查询所有主题信息
+    sql = "select t.id, t.table_name from t_table_base t where t.table_lab = 'topic' "
+    topic_list = conn.query(sql)
+    return topic_list
