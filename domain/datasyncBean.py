@@ -1,3 +1,4 @@
+
 class Table:
     def __init__(self, sourcetablename,tableid,targettablename,tablename,remark,syncstats,synctime,syncappend,synccondition,datarelationlist):
         self.sourcetablename = sourcetablename
