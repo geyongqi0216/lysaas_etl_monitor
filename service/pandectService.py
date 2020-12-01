@@ -85,7 +85,8 @@ def get_front_state(id,level):
                memo = datum[0]+'-'+datum[1]+' , '
 
     # 三个属性值拼接完成构造对象
-
+    if level == 'check' and stats=='FAI':
+        stats = 'WAR'
     return Stepstats(stats,title,memo)
 
 
