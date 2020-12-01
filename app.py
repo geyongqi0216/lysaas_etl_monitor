@@ -67,12 +67,12 @@ def datasync_appcheckedit():
     return editAppCheck()
 
 
-# @app.before_request
-# def do_filter():
-#     return login_filter()
+@app.before_request
+def do_filter():
+    return login_filter()
 
 
 # 添加过滤器，未登陆状态或登陆超时自动进入登陆页面
 app.add_template_filter(login_filter, 'login_filter')
 if __name__ == "__main__":
-    app.run('0.0.0.0', '8000')
+    app.run('0.0.0.0', '8485')

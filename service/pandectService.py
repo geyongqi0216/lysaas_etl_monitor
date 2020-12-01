@@ -19,6 +19,17 @@ def get_app_row_sql(id, lab):
     return sql
 
 
+def get_check_row_sql(id):
+    sql = """
+        select 
+        check_object,
+        '',
+        check_state
+        from v_check_log 
+    """
+    sql = sql+"where app_id='"+id+"'"
+    return sql
+
 # 计算某个主题依赖的步骤执行状态，id 主题id,level 依赖层级
 def get_front_state(id,level):
     flag_success = 0
@@ -28,7 +39,10 @@ def get_front_state(id,level):
     stats = ''
     title = ''
     memo = ''
-    data = get_connect().query(get_app_row_sql(str(id), level))
+    if level=='check':
+         data = get_connect().query(get_check_row_sql(str(id)))
+    else:
+        data = get_connect().query(get_app_row_sql(str(id), level))
     for datum in data:
         if datum[2] == 'SUC':
             flag_success  =  1
@@ -199,9 +213,4 @@ def pandect_table():
 
 
 if __name__ == '__main__':
-    sql="insert into t_job_log (config_id,exec_state,timestamp_v) values('31','SUC','2020-11-12 16:00:00')"
-    conn=get_connect()
-    insert_result = conn.execute(sql)
-    data = conn.query("select LAST_INSERT_ID()")
-    print(insert_result)
-    print(data[0][0])
+    get_front_state('32','check')
