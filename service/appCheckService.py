@@ -7,10 +7,10 @@ from domain.appCheckDomain import AppCheckDetailBean, AppCheckBean
 
 def editAppCheck():
     class ReturnInfo(Enum):
-        addSuc = "成功创建规则"
-        addFai = "规则创建失败"
-        editSuc = "成功更新规则"
-        editFai = "规则更新失败"
+        addSuc = "成功创建规则,点击返回"
+        addFai = "规则创建失败,点击返回"
+        editSuc = "成功更新规则,点击返回"
+        editFai = "规则更新失败,点击返回"
 
     app_check_id = request.form.get('appcheck_id')
     app_id_r = request.form.get('app_id')
@@ -23,14 +23,12 @@ def editAppCheck():
     # 判断是否为新增
     if app_check_id == '0':
         sql = "insert into t_check (app_id, check_object, check_used, check_logic, check_result, check_sql) values ( '" \
-              + app_id + "' , '" + str(check_object) + "' , " + check_used + " , '" + str(check_logic) \
-              + "' , '" + str(check_result) + "' , %s ); "
+              + app_id + "' , %s , " + check_used + " , %s , %s , %s ); "
     else:
-        sql = "update t_check set check_object = '" + check_object + "', check_used = " + check_used + ", check_logic = '" + check_logic \
-              + "', check_result = '" + check_result + "', check_sql = %s where id =  " + app_check_id + " ;"
+        sql = "update t_check set check_object = %s, check_used = " + check_used + ", check_logic = %s, check_result = %s," \
+            " check_sql = %s where id =  " + app_check_id + " ;"
     conn = get_connect()
-    args=[]
-    args.append(check_sql)
+    args = [check_object,check_logic,check_result,check_sql]
     result = conn.execute(sql,args)
     if app_check_id != '0' and result is not None and result > 0:
         return "<a href='datasyncappcheck' >"+ReturnInfo.editSuc.value+"</a>"
