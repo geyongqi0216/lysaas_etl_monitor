@@ -24,12 +24,14 @@ def editAppCheck():
     if app_check_id == '0':
         sql = "insert into t_check (app_id, check_object, check_used, check_logic, check_result, check_sql) values ( '" \
               + app_id + "' , '" + str(check_object) + "' , " + check_used + " , '" + str(check_logic) \
-              + "' , '" + str(check_result) + "' , '" + str(check_sql) + "' ); "
+              + "' , '" + str(check_result) + "' , %s ); "
     else:
         sql = "update t_check set check_object = '" + check_object + "', check_used = " + check_used + ", check_logic = '" + check_logic \
-              + "', check_result = '" + check_result + "', check_sql = '" + check_sql + "' where id =  " + app_check_id + " ;"
+              + "', check_result = '" + check_result + "', check_sql = %s where id =  " + app_check_id + " ;"
     conn = get_connect()
-    result = conn.execute(sql)
+    args=[]
+    args.append(check_sql)
+    result = conn.execute(sql,args)
     if app_check_id != '0' and result is not None and result > 0:
         return "<a href='datasyncappcheck' >"+ReturnInfo.editSuc.value+"</a>"
     elif app_check_id != '0':
